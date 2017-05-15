@@ -15,6 +15,6 @@ public class Move {
     }
 
     public String toString(){
-        return "Move " + "?" + " from " + from.toString() + " to " + to.toString() + ".";
+        return "Move " + this.from.getFigureName() + " from " + from.toString() + " to " + to.toString() + ".";
     }
 }

@@ -25,6 +25,38 @@ public class Square {
         return toReturn + "" + this.row;
     }
 
+    public char getOccupiedBy() {
+        return this.occupiedBy;
+    }
+
+    public String getFigureName() {
+        char type = Character.toLowerCase(this.occupiedBy);
+        StringBuilder output = new StringBuilder();
+
+        switch (type) {
+            case 'q':
+                output.append("Queen");
+                break;
+            case 'k':
+                output.append("King");
+                break;
+            case 'r':
+                output.append("Rook");
+                break;
+            case 'b':
+                output.append("Bishop");
+                break;
+            case 'n':
+                output.append("Knight");
+                break;
+            case 'p':
+                output.append("Pawn");
+                break;
+        }
+
+        return output.toString();
+    }
+
 
     public static void main(String[] args) throws Exception {
         System.out.println("START TESTING CLASS SQUARE!");
@@ -55,9 +87,5 @@ public class Square {
 
         System.out.println("Test successful!");
         System.out.println("END TESTING CLASS SQUARE!");
-    }
-
-    public char getOccupiedBy() {
-        return this.occupiedBy;
     }
 }
