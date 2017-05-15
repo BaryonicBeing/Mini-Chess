@@ -88,8 +88,8 @@ public class Board {
     public void move(Move m){
         Square from = m.from;
         Square to = m.to;
-        squares[to.row][to.col].occupiedBy = squares[from.row][from.col].occupiedBy;
-        squares[from.row][from.col].occupiedBy = '.';
+        squares[to.col][to.row].occupiedBy = squares[from.col][from.row].occupiedBy;
+        squares[from.col][from.row].occupiedBy = '.';
     }
 
     public String toString() {
@@ -117,10 +117,10 @@ public class Board {
 
     public Square getSquareByPosition(String positionStr) {
         char[] position = positionStr.toCharArray();
-        return squares[position[1] - 97][position[0] - 48];
+        return squares[position[0] - 48][position[1] - 97];
     }
     public Square getSquareByPosition(char row, char column) {
-        return squares[row - 97][column - 48];
+        return squares[column - 48][row - 97];
     }
 
     public static void main(String[] args){
