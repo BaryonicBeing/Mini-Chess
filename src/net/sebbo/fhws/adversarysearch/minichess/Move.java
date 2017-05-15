@@ -10,8 +10,8 @@ public class Move {
     public Move(Board board, String fromto){
         char[] positions = fromto.toCharArray();
 
-        this.from = board.getSquareByPosition(positions[0], positions[1]);
-        this.to = board.getSquareByPosition(positions[2], positions[3]);
+        this.from = board.getSquareByPosition(positions[1], positions[0]);
+        this.to = board.getSquareByPosition(positions[3], positions[2]);
     }
     public Move(Board board, int fromRow, int fromColumn, int toRow, int toColumn){
         this.from = board.getSquareByPosition(fromRow, fromColumn);
