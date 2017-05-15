@@ -133,13 +133,14 @@ public class Board {
         }
 
         System.out.println("\n## Start test for constructor with String as parameter!");
-        Board stringBoard = new Board("1 W\n" +
-                "kqbnr\n" +
-                "ppppp\n" +
+        toCompare = "37 W\n" +
                 ".....\n" +
+                "...k.\n" +
+                ".P...\n" +
+                ".K...\n" +
                 ".....\n" +
-                "PPPPP\n" +
-                "RNBQK");
+                ".....";
+        Board stringBoard = new Board(toCompare);
         if(stringBoard != null){
             System.out.println("not null test successful!");
         }else{
