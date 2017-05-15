@@ -1,5 +1,7 @@
 package net.sebbo.fhws.adversarysearch.minichess;
 
+import java.io.IOException;
+
 /**
  * Created by max on 15.05.17.
  */
@@ -8,14 +10,18 @@ public class Square {
     int col, row;
     char occupiedBy = '.';
 
-    public Square(int c, int r, char occupiedBy){
+    public Square(int c, int r, char occupiedBy) throws IndexOutOfBoundsException{
+        if(c >= 5 || r >= 6)
+            throw new IndexOutOfBoundsException("Square indices out of bounds!");
         this.col = c;
         this.row = r;
         this.occupiedBy = occupiedBy;
     }
 
-    public Square(String pos){
+    public Square(String pos)throws IndexOutOfBoundsException{
         char[] position = pos.toCharArray();
+        if (position[0] >= 'e' || position[1] >= '5')
+            throw new IndexOutOfBoundsException("Square indices out of bounds!");
         this.col = position[0] - 97;
         this.row = position[1] - 48;
     }
@@ -77,10 +83,10 @@ public class Square {
         System.out.println("Test successful!");
         System.out.println("Start test for toString method!");
 
-        s = new Square(5, 5, '.');
+        s = new Square(4, 5, '.');
         r = s.toString();
-        if (!r.equals("f5")) {
-            throw new Exception("Ups: Square(5, 5).toString() does not return `f5` but `" + r + "`");
+        if (!r.equals("e5")) {
+            throw new Exception("Ups: Square(4, 5).toString() does not return `e5` but `" + r + "`");
         }
 
         System.out.println("Test successful!");
