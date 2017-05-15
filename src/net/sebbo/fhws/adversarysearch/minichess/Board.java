@@ -10,7 +10,7 @@ import java.util.stream.Stream;
  * black = Lower chars
  */
 public class Board {
-    private char[][] squares = new char[6][5];
+    private Square[][] squares = new Square[6][5];
     private String parseError = null;
     private int moveNum = 1;
     private char onMove;
@@ -73,11 +73,11 @@ public class Board {
                 );
             }
             else if(thisChar == '.' || thisChar == ' ') {
-                this.squares[row][column] = '.';
+                this.squares[row][column] = new Square(row, column, '.');
                 column += 1;
             }
             else {
-                this.squares[row][column] = thisChar;
+                this.squares[row][column] = new Square(row, column, thisChar);
                 column += 1;
             }
         }
@@ -90,11 +90,11 @@ public class Board {
         output.append(' ');
         output.append(onMove);
 
-        for (char[] columns : this.squares) {
+        for (Square[] columns : this.squares) {
             output.append("\n");
 
-            for (char column : columns) {
-                output.append(column);
+            for (Square column : columns) {
+                output.append(column.getOccupiedBy());
             }
         }
 
