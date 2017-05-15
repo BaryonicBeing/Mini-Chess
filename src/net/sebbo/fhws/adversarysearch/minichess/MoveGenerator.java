@@ -12,6 +12,17 @@ public class MoveGenerator {
         this.board = board;
     }
 
+    public LinkedList<Move> moveList() {
+        LinkedList<Move> results = new LinkedList<Move>();
+        for(Square piece: board.getAllSquares()) {
+            if(piece.getFigureColor() == board.getCurrentMoveColor()) {
+                results.addAll(this.moveList(piece));
+            }
+        }
+
+        return results;
+    }
+
     public LinkedList<Move> moveList(Square piece) {
         LinkedList<Move> results = new LinkedList<Move>();
         char type = piece.getFigureType(),

@@ -133,6 +133,25 @@ public class Board {
         return this.squares.length;
     }
 
+    public char getCurrentMoveColor() {
+        return this.onMove;
+    }
+
+    public Square[] getAllSquares() {
+        int length = this.squares.length * this.squares[0].length;
+        Square[] result = new Square[length];
+        int i = 0;
+
+        for (Square[] columns : this.squares) {
+            for (Square piece : columns) {
+                result[i] = piece;
+                i += 1;
+            }
+        }
+
+        return result;
+    }
+
     public static void main(String[] args){
 
         String toCompare = "1 W\n" +
