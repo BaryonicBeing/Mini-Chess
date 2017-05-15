@@ -122,4 +122,13 @@ public class MoveGenerator {
 
         return results;
     }
+
+    public static void main(String[] args){
+        Board myBoard = new Board();
+
+        System.out.println("\n Possible Moves for A2:");
+        for(Move move: myBoard.listMovesFor(myBoard.getSquareByPosition("a0"))) {
+            System.out.println(" - " + move.toString());
+        }
+    }
 }
