@@ -13,13 +13,9 @@ public class Square {
     }
 
     public Square(String pos){
-        char c = pos.toCharArray()[0];
-        this.row = pos.toCharArray()[1];
-        if(c == 'a'){
-            this.col = 0;
-        }else{
-            this.col = c - 'a';
-        }
+        char[] position = pos.toCharArray();
+        this.col = position[0] - 97;
+        this.row = position[1] - 48;
     }
 
     public String toString(){
