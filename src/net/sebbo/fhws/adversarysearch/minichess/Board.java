@@ -126,6 +126,13 @@ public class Board {
         return squares[row][column];
     }
 
+    public int getBoardWidth() {
+        return this.squares[0].length;
+    }
+    public int getBoardHeight() {
+        return this.squares.length;
+    }
+
     public static void main(String[] args){
 
         String toCompare = "1 W\n" +
