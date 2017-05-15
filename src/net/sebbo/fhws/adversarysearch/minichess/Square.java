@@ -29,6 +29,9 @@ public class Square {
     public char getOccupiedBy() {
         return this.occupiedBy;
     }
+    public boolean isOccupied() {
+        return this.occupiedBy != '.';
+    }
 
     public char getFigureType() {
         return Character.toLowerCase(this.occupiedBy);
