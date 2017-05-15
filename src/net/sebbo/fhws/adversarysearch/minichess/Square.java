@@ -29,8 +29,11 @@ public class Square {
         return this.occupiedBy;
     }
 
+    public char getFigureType() {
+        return Character.toLowerCase(this.occupiedBy);
+    }
     public String getFigureName() {
-        char type = Character.toLowerCase(this.occupiedBy);
+        char type = this.getFigureType();
         StringBuilder output = new StringBuilder();
 
         switch (type) {
@@ -55,6 +58,9 @@ public class Square {
         }
 
         return output.toString();
+    }
+    public char getFigureColor() {
+        return Character.isLowerCase(this.occupiedBy) ? 'B' : 'W';
     }
 
 
