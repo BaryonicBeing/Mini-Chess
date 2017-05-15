@@ -52,5 +52,6 @@ public class Square {
         }
 
         System.out.println("Test successful!");
+        System.out.println("END TESTING CLASS SQUARE!");
     }
 }
