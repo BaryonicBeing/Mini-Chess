@@ -16,6 +16,9 @@ public class Main {
             System.out.println(board.toString());
             System.out.print(">");
             input = scan.next();
+            if(input.startsWith("moves")){
+                System.out.println("to be implemented!");
+            }
             board.move(new Move(board, input));
         }
     }
