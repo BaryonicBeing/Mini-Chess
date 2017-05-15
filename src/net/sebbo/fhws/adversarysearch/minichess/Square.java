@@ -25,16 +25,32 @@ public class Square {
 
 
     public static void main(String[] args) throws Exception {
+        System.out.println("START TESTING CLASS SQUARE!");
+        System.out.println("Start test for standard constructor!");
         Square s = new Square(0, 0);
         String r = s.toString();
         if(!r.equals("a0")) {
-            throw new Exception("Ups: Square(0, 0).toString() returns not `a0` but `" + r + "`");
+            throw new Exception("Ups: Square(0, 0).toString() does not return `a0` but `" + r + "`");
         }
+
+        System.out.println("Test successful!");
+        System.out.println("Start test for toString method!");
 
         s = new Square(5, 5);
         r = s.toString();
         if(!r.equals("f5")) {
-            throw new Exception("Ups: Square(5, 5).toString() returns not `f5` but `" + r + "`");
+            throw new Exception("Ups: Square(5, 5).toString() does not return `f5` but `" + r + "`");
         }
+
+        System.out.println("Test successful!");
+        System.out.println("Start test for constructor with string as parameter");
+
+        s = new Square("c4");
+        r = s.toString();
+        if(!r.equals("c4")){
+            throw new Exception("Ups: Square(2, 4).toString() does not return 'c4' but '"+ r +"'");
+        }
+
+        System.out.println("Test successful!");
     }
 }
