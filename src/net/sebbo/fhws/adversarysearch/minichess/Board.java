@@ -118,7 +118,7 @@ public class Board {
 
     public Square getSquareByPosition(String positionStr) {
         char[] position = positionStr.toCharArray();
-        return squares[position[0] - 48][position[1] - 97];
+        return squares[position[1] - 48][position[0] - 97];
     }
     public Square getSquareByPosition(char row, char column) {
         //System.out.println(row + " " + column);
@@ -213,7 +213,7 @@ public class Board {
             System.out.println(stringBoard.parseError);
         }
 
-        System.out.println("## Start test for constructor with Reader as parameter!");
+        System.out.println("\n## Start test for constructor with Reader as parameter!");
         Reader r = new StringReader(toCompare);
         Board readerBoard = new Board(r);
 

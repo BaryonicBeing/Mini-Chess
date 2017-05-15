@@ -15,6 +15,7 @@ public class MoveGenerator {
     public LinkedList<Move> moveList() {
         LinkedList<Move> results = new LinkedList<Move>();
         for(Square piece: board.getAllSquares()) {
+            System.out.println(piece.toString());
             if(piece.getFigureColor() == board.getCurrentMoveColor()) {
                 results.addAll(this.moveList(piece));
             }
@@ -27,7 +28,7 @@ public class MoveGenerator {
         LinkedList<Move> results = new LinkedList<Move>();
         char type = piece.getFigureType(),
              color = piece.getFigureColor();
-        int direction = color == 'B' ? -1 : 1;
+        int direction = color == 'B' ? 1 : -1;
 
         // queen, king
         if(type == 'q' || type == 'k') {
@@ -94,8 +95,11 @@ public class MoveGenerator {
             x += dx;
             y += dy;
 
+            System.out.println("\nMove from " + x0 + "/" + y0 + "  -- (" + dx + "/" + dy + ") --->  to " + x + "/" + y);
+
             // out of bounds
             if(x < 0 || y < 0 || x >= this.board.getBoardWidth() || y >= this.board.getBoardHeight()) {
+                System.out.println(" -> Out of bounds");
                 break;
             }
 
@@ -104,19 +108,23 @@ public class MoveGenerator {
 
                 // figures are in same color
                 if(this.board.getSquareByPosition(x, y).getFigureColor() == piece.getFigureColor()) {
+                    System.out.println(" -> Occupied by same color");
                     break;
                 }
 
                 if(capture == '0') {
+                    System.out.println(" -> Not able to capture");
                     break;
                 }
 
                 stopShort = true;
             }
             else if(capture == 'o') {
+                System.out.println(" -> Not occupied, but only capture allowed");
                 break;
             }
 
+            System.out.println(" -> Seems legit");
             results.add(new Move(board, x0, y0, x, y));
         } while (stopShort);
 
@@ -126,8 +134,10 @@ public class MoveGenerator {
     public static void main(String[] args){
         Board myBoard = new Board();
 
-        System.out.println("\n Possible Moves for A2:");
-        for(Move move: myBoard.listMovesFor(myBoard.getSquareByPosition("a0"))) {
+        System.out.println(myBoard.toString() + "\n\n");
+
+        System.out.println("\n Possible Moves for A1:");
+        for(Move move: myBoard.listMovesFor(myBoard.getSquareByPosition("a1"))) {
             System.out.println(" - " + move.toString());
         }
     }
