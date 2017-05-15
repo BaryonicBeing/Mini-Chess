@@ -25,7 +25,7 @@ public class Square {
         return toReturn + "" + this.row;
     }
 
-/**
+
     public char getOccupiedBy() {
         return this.occupiedBy;
     }

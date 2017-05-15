@@ -11,12 +11,12 @@ public class Main {
         System.out.println(board.toString());
         System.out.print("Please enter a move:\n>");
         String input = scan.next();
-        board.move(new Move(input));
+        board.move(new Move(board, input));
         while(!input.equals("0000")){
             System.out.println(board.toString());
             System.out.print(">");
             input = scan.next();
-            board.move(new Move(input));
+            board.move(new Move(board, input));
         }
     }
 }
