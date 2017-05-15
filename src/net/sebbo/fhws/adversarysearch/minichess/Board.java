@@ -1,5 +1,7 @@
 package net.sebbo.fhws.adversarysearch.minichess;
+import java.io.IOException;
 import java.io.Reader;
+import java.io.StringReader;
 import java.io.Writer;
 import java.util.stream.Stream;
 
@@ -80,6 +82,13 @@ public class Board {
         }
     }
 
+    public void move(Move m){
+        Square from = m.from;
+        Square to = m.to;
+        squares[to.row][to.col] = squares[from.row][from.col];
+        squares[from.row][from.col] = '.';
+    }
+
     public String toString() {
         StringBuilder output = new StringBuilder();
 
@@ -101,7 +110,7 @@ public class Board {
     public void print(Writer exportWriter) throws java.io.IOException {
         exportWriter.write(this.toString());
     }
-
+/**
     public static void main(String[] args){
 
         String toCompare = "1 W\n" +
@@ -149,5 +158,23 @@ public class Board {
             System.out.println("toString test failed!");
             System.out.println(stringBoard.parseError);
         }
+
+        System.out.println("## Start test for constructor with Reader as parameter!");
+        Reader r = new StringReader(toCompare);
+        Board readerBoard = new Board(r);
+
+        if(readerBoard != null){
+            System.out.println("not null test successful!");
+        }else{
+            System.out.println("not null test failed!");
+        }
+
+        if(readerBoard.toString().equals(toCompare)){
+            System.out.println("toString test successful!");
+        }else{
+            System.out.println("toString test failed!");
+            System.out.println(r.toString());
+        }
     }
+*/
 }
