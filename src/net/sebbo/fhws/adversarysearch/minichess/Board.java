@@ -5,6 +5,9 @@ import java.util.stream.Stream;
 
 /**
  * Created by Sebastian Pekarek on 15.05.17.
+ *
+ * white = Upper chars
+ * black = Lower chars
  */
 public class Board {
     private char[][] squares = new char[6][5];
