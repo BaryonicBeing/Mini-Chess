@@ -25,6 +25,7 @@ public class Square {
         return toReturn + "" + this.row;
     }
 
+
     public char getOccupiedBy() {
         return this.occupiedBy;
     }
@@ -69,7 +70,7 @@ public class Square {
         System.out.println("Start test for standard constructor!");
         Square s = new Square(0, 0, '.');
         String r = s.toString();
-        if(!r.equals("a0")) {
+        if (!r.equals("a0")) {
             throw new Exception("Ups: Square(0, 0).toString() does not return `a0` but `" + r + "`");
         }
 
@@ -78,7 +79,7 @@ public class Square {
 
         s = new Square(5, 5, '.');
         r = s.toString();
-        if(!r.equals("f5")) {
+        if (!r.equals("f5")) {
             throw new Exception("Ups: Square(5, 5).toString() does not return `f5` but `" + r + "`");
         }
 
@@ -87,8 +88,8 @@ public class Square {
 
         s = new Square("c4");
         r = s.toString();
-        if(!r.equals("c4")){
-            throw new Exception("Ups: Square(2, 4).toString() does not return 'c4' but '"+ r +"'");
+        if (!r.equals("c4")) {
+            throw new Exception("Ups: Square(2, 4).toString() does not return 'c4' but '" + r + "'");
         }
 
         System.out.println("Test successful!");

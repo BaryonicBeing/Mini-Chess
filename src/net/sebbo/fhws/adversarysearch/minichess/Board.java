@@ -1,5 +1,7 @@
 package net.sebbo.fhws.adversarysearch.minichess;
+import java.io.IOException;
 import java.io.Reader;
+import java.io.StringReader;
 import java.io.Writer;
 import java.util.stream.Stream;
 
@@ -83,6 +85,13 @@ public class Board {
         }
     }
 
+    public void move(Move m){
+        Square from = m.from;
+        Square to = m.to;
+        squares[to.row][to.col].occupiedBy = squares[from.row][from.col].occupiedBy;
+        squares[from.row][from.col].occupiedBy = '.';
+    }
+
     public String toString() {
         StringBuilder output = new StringBuilder();
 
@@ -105,12 +114,13 @@ public class Board {
         exportWriter.write(this.toString());
     }
 
+
     public Square getSquareByPosition(String positionStr) {
         char[] position = positionStr.toCharArray();
-        return squares[position[1] - 48][position[0] - 97];
+        return squares[position[1] - 97][position[0] - 48];
     }
     public Square getSquareByPosition(char row, char column) {
-        return squares[row - 48][column - 97];
+        return squares[row - 97][column - 48];
     }
 
     public static void main(String[] args){
@@ -161,5 +171,23 @@ public class Board {
             System.out.println("toString test failed!");
             System.out.println(stringBoard.parseError);
         }
+
+        System.out.println("## Start test for constructor with Reader as parameter!");
+        Reader r = new StringReader(toCompare);
+        Board readerBoard = new Board(r);
+
+        if(readerBoard != null){
+            System.out.println("not null test successful!");
+        }else{
+            System.out.println("not null test failed!");
+        }
+
+        if(readerBoard.toString().equals(toCompare)){
+            System.out.println("toString test successful!");
+        }else{
+            System.out.println("toString test failed!");
+            System.out.println(r.toString());
+        }
     }
+
 }
