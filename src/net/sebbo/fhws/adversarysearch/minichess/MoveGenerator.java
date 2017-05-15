@@ -133,7 +133,7 @@ public class MoveGenerator {
         return results;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws Exception {
         Board myBoard = new Board();
 
         System.out.println(myBoard.toString() + "\n\n");
