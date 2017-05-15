@@ -13,6 +13,10 @@ public class Move {
         this.from = board.getSquareByPosition(positions[0], positions[1]);
         this.to = board.getSquareByPosition(positions[2], positions[3]);
     }
+    public Move(Board board, int fromRow, int fromColumn, int toRow, int toColumn){
+        this.from = board.getSquareByPosition(fromRow, fromColumn);
+        this.to = board.getSquareByPosition(toRow, toColumn);
+    }
 
     public String toString(){
         return "Move " + this.from.getFigureName() + " from " + from.toString() + " to " + to.toString() + ".";
