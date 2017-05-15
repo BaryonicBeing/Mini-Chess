@@ -18,7 +18,7 @@ public class Board {
     private int moveNum = 1;
     private char onMove;
 
-    public Board() {
+    public Board() throws Exception {
         this.parseString(
             "1 W\n" +
             "kqbnr\n" +
@@ -30,22 +30,14 @@ public class Board {
         );
     }
 
-    public Board(String importString) {
+    public Board(String importString) throws Exception {
         this.parseString(importString);
     }
-    public Board(Reader importReader) {
+    public Board(Reader importReader) throws Exception {
         this.parseString(importReader.toString());
     }
 
-    private void parseString(String importString) {
-        try {
-            this.parseStringHandler(importString);
-        }
-        catch(Exception error) {
-            this.parseError = error.toString();
-        }
-    }
-    private void parseStringHandler(String importString) throws Exception {
+    private void parseString(String importString) throws Exception {
         int i = 0, row = 0, column = 0;
         char thisChar;
 
@@ -59,7 +51,7 @@ public class Board {
             this.onMove = 'B';
         }
 
-        for(i = importString.indexOf("\n") + 1; i <= importString.length(); i += 1) {
+        for(i = importString.indexOf("\n") + 1; i < importString.length(); i += 1) {
             thisChar = importString.charAt(i);
 
             if(thisChar == '\n' && column == squares[0].length && row < squares.length) {
@@ -164,7 +156,7 @@ public class Board {
         return mg.moveList(piece);
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws Exception {
 
         String toCompare = "1 W\n" +
                 "kqbnr\n" +
