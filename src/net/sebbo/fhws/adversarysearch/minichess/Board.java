@@ -83,6 +83,8 @@ public class Board {
         Square to = m.to;
         squares[to.row][to.col].occupiedBy = squares[from.row][from.col].occupiedBy;
         squares[from.row][from.col].occupiedBy = '.';
+        moveNum++;
+        onMove = moveNum%2==0 ? 'B' : 'W';
     }
 
     public String toString() {
