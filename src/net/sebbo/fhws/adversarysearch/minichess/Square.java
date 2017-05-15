@@ -10,8 +10,8 @@ public class Square {
     int col, row;
     char occupiedBy = '.';
 
-    public Square(int c, int r, char occupiedBy) throws IndexOutOfBoundsException{
-        if(c >= 5 || r >= 6)
+    public Square(int r, int c, char occupiedBy) throws IndexOutOfBoundsException{
+        if(r >= 6 || c >= 5)
             throw new IndexOutOfBoundsException("Square indices out of bounds!");
         this.col = c;
         this.row = r;

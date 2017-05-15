@@ -88,8 +88,8 @@ public class Board {
     public void move(Move m){
         Square from = m.from;
         Square to = m.to;
-        squares[to.col][to.row].occupiedBy = squares[from.col][from.row].occupiedBy;
-        squares[from.col][from.row].occupiedBy = '.';
+        squares[to.row][to.col].occupiedBy = squares[from.row][from.col].occupiedBy;
+        squares[from.row][from.col].occupiedBy = '.';
     }
 
     public String toString() {
