@@ -11,7 +11,7 @@ public class Board {
     private int moveNum = 1;
     private char onMove;
 
-    void Board() {
+    public Board() {
         this.parseString(
             "1 W\n" +
             "  kqbnr\n" +
@@ -23,10 +23,10 @@ public class Board {
         );
     }
 
-    void Board(String importString) {
+    public Board(String importString) {
         this.parseString(importString);
     }
-    void Board(Reader importReader) {
+    public Board(Reader importReader) {
         this.parseString(importReader.toString());
     }
 
@@ -86,5 +86,53 @@ public class Board {
 
     public void print(Writer exportWriter) throws java.io.IOException {
         exportWriter.write(this.toString());
+    }
+
+    public static void main(String[] args){
+
+        String toCompare = "1 W\n" +
+                "  kqbnr\n" +
+                "  ppppp\n" +
+                "  .....\n" +
+                "  .....\n" +
+                "  PPPPP\n" +
+                "  RNBQK";
+
+        System.out.println("START TESTING!");
+
+        Board standardBoard = new Board();
+        System.out.println("Starting test for standard constructor!");
+        if(standardBoard != null){
+            System.out.println("not null test successful!");
+        }else{
+            System.out.println("not null test failed!");
+        }
+
+        if(standardBoard.toString().equals(toCompare)){
+            System.out.println("toString test successful!");
+        }else{
+            System.out.println("toString test failed!");
+            System.out.println(standardBoard.parseError);
+        }
+
+        System.out.println("Start test for constructor with String as parameter!");
+        Board stringBoard = new Board("  kqbnr\n" +
+                "  ppppp\n" +
+                "  .....\n" +
+                "  .....\n" +
+                "  PPPPP\n" +
+                "  RNBQK");
+        if(stringBoard != null){
+            System.out.println("not null test successful!");
+        }else{
+            System.out.println("not null test failed!");
+        }
+
+        if(stringBoard.toString().equals(toCompare)){
+            System.out.println("toString test successful!");
+        }else{
+            System.out.println("toString test failed!");
+            System.out.println(stringBoard.parseError);
+        }
     }
 }
