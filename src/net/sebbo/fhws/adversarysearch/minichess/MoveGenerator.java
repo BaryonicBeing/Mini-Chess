@@ -104,28 +104,30 @@ public class MoveGenerator {
             }
 
             // there is a piece at x/y
-            if(this.board.getSquareByPosition(x, y).isOccupied()) {
+            if(x < 6 && y < 5) {
+                if (this.board.getSquareByPosition(x, y).isOccupied()) {
 
-                // figures are in same color
-                if(this.board.getSquareByPosition(x, y).getFigureColor() == piece.getFigureColor()) {
-                    System.out.println(" -> Occupied by same color");
+                    // figures are in same color
+                    if (this.board.getSquareByPosition(x, y).getFigureColor() == piece.getFigureColor()) {
+                        System.out.println(" -> Occupied by same color");
+                        break;
+                    }
+
+                    if (capture == '0') {
+                        System.out.println(" -> Not able to capture");
+                        break;
+                    }
+
+                    stopShort = true;
+                } else if (capture == 'o') {
+                    System.out.println(" -> Not occupied, but only capture allowed");
                     break;
                 }
 
-                if(capture == '0') {
-                    System.out.println(" -> Not able to capture");
-                    break;
-                }
 
-                stopShort = true;
+                System.out.println(" -> Seems legit");
+                results.add(new Move(board, x0, y0, x, y));
             }
-            else if(capture == 'o') {
-                System.out.println(" -> Not occupied, but only capture allowed");
-                break;
-            }
-
-            System.out.println(" -> Seems legit");
-            results.add(new Move(board, x0, y0, x, y));
         } while (stopShort);
 
         return results;

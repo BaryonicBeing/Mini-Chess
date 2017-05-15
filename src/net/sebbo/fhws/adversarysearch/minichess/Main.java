@@ -17,15 +17,8 @@ public class Main {
             System.out.print(">");
             input = scan.next();
 
-            if(input.equals("/lom")){
-                board.listNextMoves();
-            }else if(input.startsWith("/lom")) {
-                String square = input.split(" ")[1];
-                System.out.println(square);
-                board.listMovesFor(board.getSquareByPosition(square));
-            }else {
-                board.move(new Move(board, input));
-            }
+            board.move(new Move(board, input));
+
         }
     }
 }

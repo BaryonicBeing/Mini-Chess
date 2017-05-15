@@ -125,7 +125,7 @@ public class Board {
         return squares[row - 48][column - 97];
     }
     public Square getSquareByPosition(int row, int column) {
-        System.out.println(row + " "  + column);
+        //System.out.println(row + " "  + column);
         return squares[row][column];
     }
 
