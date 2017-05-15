@@ -39,11 +39,20 @@ public class Board {
         }
     }
     private void parseStringHandler(String importString) throws Exception {
-        int row = 0;
-        int column = 0;
+        int i = 0, row = 0, column = 0;
         char thisChar;
 
-        for(int i = 0; i <= importString.length(); i += 1) {
+        this.moveNum = Integer.parseInt(
+            importString.substring(0, importString.indexOf(" "))
+        );
+
+        if(importString.charAt(importString.indexOf(" ") + 1) == 'W') {
+            this.onMove = 'W';
+        }else{
+            this.onMove = 'B';
+        }
+
+        for(; i <= importString.length(); i += 1) {
             thisChar = importString.charAt(i);
 
             if(thisChar == '\n' && column == (squares[0].length - 1) && row <= squares.length) {
