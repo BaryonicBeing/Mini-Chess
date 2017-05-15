@@ -7,9 +7,12 @@ import java.util.stream.Stream;
 
 /**
  * Created by Sebastian Pekarek on 15.05.17.
+ *
+ * white = Upper chars
+ * black = Lower chars
  */
 public class Board {
-    private char[][] squares = new char[6][5];
+    private Square[][] squares = new Square[6][5];
     private String parseError = null;
     private int moveNum = 1;
     private char onMove;
@@ -72,11 +75,11 @@ public class Board {
                 );
             }
             else if(thisChar == '.' || thisChar == ' ') {
-                this.squares[row][column] = '.';
+                this.squares[row][column] = new Square(row, column, '.');
                 column += 1;
             }
             else {
-                this.squares[row][column] = thisChar;
+                this.squares[row][column] = new Square(row, column, thisChar);
                 column += 1;
             }
         }
@@ -96,11 +99,11 @@ public class Board {
         output.append(' ');
         output.append(onMove);
 
-        for (char[] columns : this.squares) {
+        for (Square[] columns : this.squares) {
             output.append("\n");
 
-            for (char column : columns) {
-                output.append(column);
+            for (Square column : columns) {
+                output.append(column.getOccupiedBy());
             }
         }
 
@@ -139,13 +142,14 @@ public class Board {
         }
 
         System.out.println("\n## Start test for constructor with String as parameter!");
-        Board stringBoard = new Board("1 W\n" +
-                "kqbnr\n" +
-                "ppppp\n" +
+        toCompare = "37 W\n" +
                 ".....\n" +
+                "...k.\n" +
+                ".P...\n" +
+                ".K...\n" +
                 ".....\n" +
-                "PPPPP\n" +
-                "RNBQK");
+                ".....";
+        Board stringBoard = new Board(toCompare);
         if(stringBoard != null){
             System.out.println("not null test successful!");
         }else{

@@ -6,10 +6,12 @@ package net.sebbo.fhws.adversarysearch.minichess;
 public class Square {
 
     int col, row;
+    char occupiedBy = '.';
 
-    public Square(int c, int r){
+    public Square(int c, int r, char occupiedBy){
         this.col = c;
         this.row = r;
+        this.occupiedBy = occupiedBy;
     }
 
     public Square(String pos){
@@ -27,7 +29,7 @@ public class Square {
     public static void main(String[] args) throws Exception {
         System.out.println("START TESTING CLASS SQUARE!");
         System.out.println("Start test for standard constructor!");
-        Square s = new Square(0, 0);
+        Square s = new Square(0, 0, '.');
         String r = s.toString();
         if (!r.equals("a0")) {
             throw new Exception("Ups: Square(0, 0).toString() does not return `a0` but `" + r + "`");
@@ -36,7 +38,7 @@ public class Square {
         System.out.println("Test successful!");
         System.out.println("Start test for toString method!");
 
-        s = new Square(5, 5);
+        s = new Square(5, 5, '.');
         r = s.toString();
         if (!r.equals("f5")) {
             throw new Exception("Ups: Square(5, 5).toString() does not return `f5` but `" + r + "`");
@@ -55,4 +57,8 @@ public class Square {
         System.out.println("END TESTING CLASS SQUARE!");
     }
     */
+
+    public char getOccupiedBy() {
+        return this.occupiedBy;
+    }
 }
