@@ -122,6 +122,9 @@ public class Board {
     public Square getSquareByPosition(char row, char column) {
         return squares[row - 97][column - 48];
     }
+    public Square getSquareByPosition(int row, int column) {
+        return squares[row][column];
+    }
 
     public static void main(String[] args){
 
