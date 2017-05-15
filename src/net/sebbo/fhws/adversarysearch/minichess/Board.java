@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.Writer;
+import java.util.LinkedList;
 import java.util.stream.Stream;
 
 /**
@@ -150,6 +151,15 @@ public class Board {
         }
 
         return result;
+    }
+
+    public LinkedList<Move> listNextMoves() {
+        MoveGenerator mg = new MoveGenerator(this);
+        return mg.moveList();
+    }
+    public LinkedList<Move> listMovesFor(Square piece) {
+        MoveGenerator mg = new MoveGenerator(this);
+        return mg.moveList(piece);
     }
 
     public static void main(String[] args){
