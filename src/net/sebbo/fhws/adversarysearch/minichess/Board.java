@@ -114,6 +114,15 @@ public class Board {
         exportWriter.write(this.toString());
     }
 /**
+
+    public Square getSquareByPosition(String positionStr) {
+        char[] position = positionStr.toCharArray();
+        return squares[position[1] - 48][position[0] - 97];
+    }
+    public Square getSquareByPosition(char row, char column) {
+        return squares[row - 48][column - 97];
+    }
+
     public static void main(String[] args){
 
         String toCompare = "1 W\n" +
