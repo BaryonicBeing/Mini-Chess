@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.stream.Stream;
 
@@ -14,6 +15,9 @@ import java.util.stream.Stream;
  */
 public class Board {
     private Square[][] squares = new Square[6][5];
+    /** TODO: Implement methods to save state[White|Black] */
+    private ArrayList<Square> stateWhite = new ArrayList<>();
+    private ArrayList<Square> stateBlack = new ArrayList<>();
     private String parseError = null;
     private int moveNum = 1;
     private char onMove;
