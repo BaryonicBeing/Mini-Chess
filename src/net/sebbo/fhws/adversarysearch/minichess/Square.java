@@ -6,23 +6,20 @@ package net.sebbo.fhws.adversarysearch.minichess;
 public class Square {
 
     int col, row;
-    char piece;
 
-    public Square(int c, int r, char p){
+    public Square(int c, int r){
         this.col = c;
         this.row = r;
-        this.piece = p;
     }
 
-    public Square(String pos, char p){
+    public Square(String pos){
         char[] position = pos.toCharArray();
         this.col = position[0] - 97;
         this.row = position[1] - 48;
-        this.piece = p;
     }
 
     public String toString(){
         char toReturn = this.col == 0 ? 'a' :(char) ('a' + this.col);
-        return toReturn + "" + this.row + " occupied by a " + this.piece;
+        return toReturn + "" + this.row;
     }
 }
