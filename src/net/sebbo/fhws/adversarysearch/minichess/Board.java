@@ -6,7 +6,7 @@ import java.io.Writer;
  * Created by Sebastian Pekarek on 15.05.17.
  */
 public class Board {
-    private Square[][] squares = new Square[5][6];
+    private char[][] squares = new char[5][6];
     private String parseError = null;
     private int moveNum = 1;
     private char onMove;
@@ -66,7 +66,7 @@ public class Board {
                 throw new Exception("Error while parsing board: Got new line, but current column is not complete…");
             }
             else if(thisChar == '.' || thisChar == ' ') {
-                this.squares[row][column] = new Square(column, row, thisChar);
+                this.squares[row][column] = thisChar;
                 column += 1;
             }
         }
@@ -75,18 +75,16 @@ public class Board {
     public String toString() {
         StringBuilder output = new StringBuilder();
 
-        for (Square[] columns : this.squares) {
-            for (Square column : columns) {
-                output.append(
-                    column.toString()
-                );
+        for (char[] columns : this.squares) {
+            for (char column : columns) {
+                output.append(column);
             }
         }
 
         return output.toString();
     }
 
-    public void print(Writer exportWriter) {
-        // @todo
+    public void print(Writer exportWriter) throws java.io.IOException {
+        exportWriter.write(this.toString());
     }
 }
