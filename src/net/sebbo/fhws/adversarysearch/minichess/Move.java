@@ -4,8 +4,6 @@ package net.sebbo.fhws.adversarysearch.minichess;
  * Created by max on 15.05.17.
  */
 public class Move {
-    //int[] from = new int[2];
-    //int[] to = new int[2];
     Square from;
     Square to;
 
