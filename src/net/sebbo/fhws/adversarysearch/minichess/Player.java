@@ -5,7 +5,7 @@ package net.sebbo.fhws.adversarysearch.minichess;
  */
 public interface Player {
 
-    boolean isLegal(Move move);
+    boolean isLegal(Board board, Move move);
 
-    public Move makeMove(String move_str);
+    public Move makeMove(Board b);
 }
