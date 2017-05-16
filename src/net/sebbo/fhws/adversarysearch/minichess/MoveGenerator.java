@@ -148,7 +148,7 @@ public class MoveGenerator {
 
 
             this.debug("            ✅ Seems legit.");
-            results.add(new Move(board, y0, x0, y, x));
+            results.add(new Move(board, piece, toPiece));
         } while (!stopShort);
 
         this.debug("moveScan(): Done, " + results.size() + " possible positions found for " + piece.getFigureName() + " at (" + x0 + "/" + y0 + ").");

@@ -142,11 +142,9 @@ public class Board {
         return squares[position[1] - 48][position[0] - 97];
     }
     public Square getSquareByPosition(char row, char column) {
-        System.out.println("Debug: " + row + " " + column + " --> " + (row-48) + " " + (column-97));
         return squares[row - 48][column - 97];
     }
     public Square getSquareByPosition(int row, int column) {
-        //System.out.println(row + " "  + column);
         return squares[row][column];
     }
 
@@ -155,6 +153,10 @@ public class Board {
     }
     public int getBoardHeight() {
         return this.squares.length;
+    }
+
+    public int getMoveNr() {
+        return this.moveNum;
     }
 
     public char getCurrentMoveColor() {

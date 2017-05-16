@@ -1,5 +1,7 @@
 package net.sebbo.fhws.adversarysearch.minichess;
 
+import java.util.LinkedList;
+
 /**
  * Created by max on 16.05.17.
  */
@@ -29,15 +31,21 @@ public class RandomPlayer implements Player {
 
     @Override
     public Move getMove(Board b) {
-        System.out.println("Square test " + b.getAllSquares()[0].toString());
         MoveGenerator moveGen = new MoveGenerator(b);
-        int move_num = (int) (Math.random() * moveGen.moveList().size());
+        LinkedList<Move> opportunities = moveGen.moveList();
 
-        for(Move m : moveGen.moveList()){
-            if(move_num-- == 0)
-                return m;
+        System.out.println("> Hmm, found " + opportunities.size() + " opportunities to make a move…");
+        if(opportunities.size() == 0) {
+            return null;
         }
-        return null;
+
+        int move_num = (int) Math.round(Math.random() * (opportunities.size() - 1));
+        System.out.print("> Pick #" + move_num + ": ");
+
+        Move myOpportunity = opportunities.get(move_num);
+        System.out.println(myOpportunity);
+
+        return myOpportunity;
     }
 
     @Override

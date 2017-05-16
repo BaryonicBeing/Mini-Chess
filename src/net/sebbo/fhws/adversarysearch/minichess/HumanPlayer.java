@@ -24,12 +24,9 @@ public class HumanPlayer implements Player {
     @Override
     public boolean isLegal(Board b, Move move) {
         MoveGenerator moveGen = new MoveGenerator(b);
-        //System.out.println("Move from = " + move.toString());
         LinkedList<Move> move_list = moveGen.moveList(move.from);
-        //System.out.println(move_list.size());
         for(Move m : move_list){
-            System.out.println("GOT " + move.toString() + "\nNEED " + m.toString());
-            if(m.to == move.to){
+            if(m.to.toString().equals(move.to.toString())){
                 return true;
             }
         }
@@ -38,6 +35,8 @@ public class HumanPlayer implements Player {
 
     @Override
     public Move getMove(Board b){
+        System.out.println("> Please enter your move (xy-xy):");
+        System.out.print("> ");
         Scanner scan = new Scanner(System.in);
         while (true) {
             String input = scan.next();
@@ -45,6 +44,12 @@ public class HumanPlayer implements Player {
             if (isLegal(b, toReturn)) {
                 return toReturn;
             }
+
+            System.out.println("> \n> Move is not legal. Here are some legal ones, pick wisely:");
+            for(Move move: b.listNextMoves()) {
+                System.out.println(">    - " + move.toString());
+            }
+            System.out.print("> \n> ");
         }
     }
 

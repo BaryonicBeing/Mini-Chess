@@ -7,10 +7,9 @@ public class Move {
     Square from;
     Square to;
 
-    public Move(Board board, String fromto){
-        char[] positions = fromto.toCharArray();
-        System.out.println(board.getSquareByPosition(Character.forDigit('6'-positions[1],10), positions[0]).getFigureName());
-        //System.out.println(Character.forDigit('7'-positions[1], 10) + " " + positions[0]);
+    public Move(Board board, String fromTo){
+        char[] positions = fromTo.toCharArray();
+
         this.from = board.getSquareByPosition(Character.forDigit('6'-positions[1],10), positions[0]);
         this.to = board.getSquareByPosition(Character.forDigit('6'-positions[4], 10), positions[3]);
     }
@@ -19,6 +18,10 @@ public class Move {
 
         this.from = board.getSquareByPosition((board.getBoardHeight()-fromRow)-1, fromColumn);
         this.to = board.getSquareByPosition((board.getBoardHeight()-toRow)-1, toColumn);
+    }
+    public Move(Board board, Square from, Square to){
+        this.from = from;
+        this.to = to;
     }
 
     public String toString(){

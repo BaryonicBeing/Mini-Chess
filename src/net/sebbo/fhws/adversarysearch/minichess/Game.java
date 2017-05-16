@@ -56,9 +56,16 @@ public class Game {
                 myPlayer = this.player_2;
             }
 
-            System.out.println(this.board.toString());
-            System.out.println("\n\n\nPlayer " + (this.board.getCurrentMoveColor() == 'W' ? "⬜️" : "⬛️"));
+            System.out.println("\n=====================================\n");
+            System.out.println(
+                "Move #" + this.board.getMoveNr() + " / " +
+                "Player " + (this.board.getCurrentMoveColor() == 'W' ? "⬜️" : "⬛️") +
+                "\n"
+            );
+            System.out.println(this.board.toString() + "\n");
             Move myMove = myPlayer.getMove(this.board);
+
+            System.out.println("\nPlayer plays " + myMove + "…");
 
             moveResponse = this.board.move(myMove);
             if(this.board.getCurrentMoveColor() == 'W') {
@@ -80,7 +87,7 @@ public class Game {
                 System.out.println("👬🙌🎉");
             }
             else {
-                System.out.println("\nAWESOME! 🙌");
+                System.out.println("Looks like an awesome move… 🙌");
             }
         } while (moveResponse == '?');
     }
