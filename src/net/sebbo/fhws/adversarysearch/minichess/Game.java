@@ -13,5 +13,14 @@ public class Game {
         this.player_2 = p2;
     }
 
+    public void run() throws Exception{
 
+        Board board = new Board();
+        char response = '?';
+
+        while(response == '?'){
+
+
+        }
+    }
 }

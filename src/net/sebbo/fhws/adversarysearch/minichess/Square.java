@@ -28,7 +28,7 @@ public class Square {
 
     public String toString(){
         char toReturn = this.col == 0 ? 'a' :(char) ('a' + this.col);
-        return toReturn + "" + this.row;
+        return toReturn + "" + (this.row + 1);
     }
 
 

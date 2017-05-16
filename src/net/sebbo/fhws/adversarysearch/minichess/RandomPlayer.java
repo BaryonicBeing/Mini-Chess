@@ -18,7 +18,7 @@ public class RandomPlayer implements Player {
 
     @Override
     public Move makeMove(Board b) {
-        System.out.println("Color is " + b.getCurrentMoveColor());
+        System.out.println("Square test " + b.getAllSquares()[0].toString());
         MoveGenerator moveGen = new MoveGenerator(b);
         int move_num = (int) (Math.random() * moveGen.moveList().size());
 
