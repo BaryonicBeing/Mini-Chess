@@ -11,7 +11,7 @@ public class Move {
         char[] positions = fromto.toCharArray();
 
         this.from = board.getSquareByPosition(positions[1], positions[0]);
-        this.to = board.getSquareByPosition(positions[3], positions[2]);
+        this.to = board.getSquareByPosition(positions[4], positions[3]);
     }
     public Move(Board board, int fromRow, int fromColumn, int toRow, int toColumn){
         this.from = board.getSquareByPosition(fromRow, fromColumn);
