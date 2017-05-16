@@ -9,13 +9,15 @@ public class Move {
 
     public Move(Board board, String fromto){
         char[] positions = fromto.toCharArray();
-
-        this.from = board.getSquareByPosition((char)(positions[1]-1), positions[0]);
-        this.to = board.getSquareByPosition((char)(positions[4]-1), positions[3]);
+        System.out.println('6' - positions[1]);
+        this.from = board.getSquareByPosition(Character.forDigit('6'-positions[1],10), positions[0]);
+        this.to = board.getSquareByPosition(Character.forDigit('6'-positions[4], 10), positions[3]);
     }
     public Move(Board board, int fromRow, int fromColumn, int toRow, int toColumn){
-        this.from = board.getSquareByPosition(fromRow, fromColumn);
-        this.to = board.getSquareByPosition(toRow, toColumn);
+        //System.out.println(fromRow + " digitiert zu " + (board.getBoardHeight() - fromRow));
+
+        this.from = board.getSquareByPosition((board.getBoardHeight()-fromRow)-1, fromColumn);
+        this.to = board.getSquareByPosition((board.getBoardHeight()-toRow)-1, toColumn);
     }
 
     public String toString(){
