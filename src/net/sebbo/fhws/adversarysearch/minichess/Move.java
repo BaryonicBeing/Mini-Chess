@@ -21,6 +21,6 @@ public class Move {
     }
 
     public String toString(){
-        return "Move " + this.from.getFigureName() + " from " + from.toString() + " to " + to.toString() + ".";
+        return from.toString() + "-" + to.toString();
     }
 }
