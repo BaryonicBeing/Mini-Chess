@@ -32,7 +32,7 @@ public class Main {
         Player p2 = null;
         Scanner scan = new Scanner(System.in);
         String input;
-        int imcs_game_id;
+        String imcs_game_id;
 
             System.out.println("Is Player 1 human, npc or imcs?");
             input = scan.next();
@@ -41,6 +41,10 @@ public class Main {
                 p1 = new HumanPlayer();
             } else if (input.equals("npc")) {
                 p1 = new RandomPlayer();
+            } else if (input.equals("imcs")) {
+                System.out.println("Please type in the id.");
+                imcs_game_id = scan.next();
+                p1 = new InternetAcceptPlayer(imcs_game_id);
             }
 
             System.out.println("Is Player 2 human, npc or imcs?");
@@ -50,12 +54,19 @@ public class Main {
                 p2 = new HumanPlayer();
             } else if (input.equals("npc")) {
                 p2 = new RandomPlayer();
+            } else if (input.equals("imcs")){
+                System.out.println("Please type in the id.");
+                imcs_game_id = scan.next();
+                p2 = new InternetAcceptPlayer(imcs_game_id);
             }
 
             if (p1 == null || p2 == null) return;
 
+
             Game game = new Game(p1, p2);
-            game.run();
+  //      System.out.println("p1 color is " + p1.getColor() + "\np2 color is " + p2.getColor());
+
+        game.run();
         }
 
 }

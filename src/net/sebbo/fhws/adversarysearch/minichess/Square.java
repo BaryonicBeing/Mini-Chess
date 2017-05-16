@@ -5,17 +5,19 @@ import java.io.IOException;
 /**
  * Created by max on 15.05.17.
  */
-public class Square {
+public class Square{
 
+    Board b;
     int col, row;
     char occupiedBy = '.';
 
-    public Square(int r, int c, char occupiedBy) throws IndexOutOfBoundsException{
-        if(r >= 6 || c >= 5)
+    public Square(Board b, int r, int c, char occupiedBy) throws IndexOutOfBoundsException{
+        if(r >= b.getBoardHeight() || c >= b.getBoardWidth())
             throw new IndexOutOfBoundsException("Square indices out of bounds!");
         this.col = c;
         this.row = r;
         this.occupiedBy = occupiedBy;
+        this.b = b;
     }
 
     public Square(String pos)throws IndexOutOfBoundsException{
@@ -28,7 +30,7 @@ public class Square {
 
     public String toString(){
         char toReturn = this.col == 0 ? 'a' :(char) ('a' + this.col);
-        return toReturn + "" + (this.row + 1);
+        return toReturn + "" + (this.b.getBoardHeight() - this.row);
     }
 
 
@@ -75,9 +77,10 @@ public class Square {
 
 
     public static void main(String[] args) throws Exception {
+        Board b = new Board();
         System.out.println("START TESTING CLASS SQUARE!");
         System.out.println("Start test for standard constructor!");
-        Square s = new Square(0, 0, '.');
+        Square s = new Square(b , 0, 0, '.');
         String r = s.toString();
         if (!r.equals("a0")) {
             throw new Exception("Ups: Square(0, 0).toString() does not return `a0` but `" + r + "`");
@@ -86,7 +89,7 @@ public class Square {
         System.out.println("Test successful!");
         System.out.println("Start test for toString method!");
 
-        s = new Square(4, 5, '.');
+        s = new Square(b, 4, 5, '.');
         r = s.toString();
         if (!r.equals("e5")) {
             throw new Exception("Ups: Square(4, 5).toString() does not return `e5` but `" + r + "`");

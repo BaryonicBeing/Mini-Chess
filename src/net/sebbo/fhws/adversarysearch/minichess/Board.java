@@ -69,11 +69,11 @@ public class Board {
                 );
             }
             else if(thisChar == '.' || thisChar == ' ') {
-                this.squares[row][column] = new Square(row, column, '.');
+                this.squares[row][column] = new Square(this, row, column, '.');
                 column += 1;
             }
             else {
-                this.squares[row][column] = new Square(row, column, thisChar);
+                this.squares[row][column] = new Square(this, row, column, thisChar);
                 column += 1;
             }
         }
@@ -142,7 +142,7 @@ public class Board {
         return squares[position[1] - 48][position[0] - 97];
     }
     public Square getSquareByPosition(char row, char column) {
-        //System.out.println(row + " " + column);
+        System.out.println("Debug: " + row + " " + column + " --> " + (row-48) + " " + (column-97));
         return squares[row - 48][column - 97];
     }
     public Square getSquareByPosition(int row, int column) {

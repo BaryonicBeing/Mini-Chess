@@ -9,7 +9,8 @@ public class Move {
 
     public Move(Board board, String fromto){
         char[] positions = fromto.toCharArray();
-        System.out.println('6' - positions[1]);
+        System.out.println(board.getSquareByPosition(Character.forDigit('6'-positions[1],10), positions[0]).getFigureName());
+        //System.out.println(Character.forDigit('7'-positions[1], 10) + " " + positions[0]);
         this.from = board.getSquareByPosition(Character.forDigit('6'-positions[1],10), positions[0]);
         this.to = board.getSquareByPosition(Character.forDigit('6'-positions[4], 10), positions[3]);
     }
