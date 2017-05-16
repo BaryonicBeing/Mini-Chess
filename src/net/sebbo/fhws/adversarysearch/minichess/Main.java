@@ -1,11 +1,23 @@
 package net.sebbo.fhws.adversarysearch.minichess;
 
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Main {
 
+    public static Move cpu_move(LinkedList<Move> moves){
+        int move_pos = (int) (Math.random() * moves.size());
+        Move secure_move = moves.get(0);
+        for(Move m : moves){
+            if(move_pos-- == 0)
+                return m;
+        }
+        return secure_move;
+    }
+
     public static void main(String[] args) throws Exception {
         Board board = new Board();
+        MoveGenerator mg;
         Scanner scan = new Scanner(System.in);
         System.out.println("Welcome to Mini Chess!");
         System.out.println(board.toString());
@@ -13,12 +25,13 @@ public class Main {
         String input = scan.next();
         board.move(new Move(board, input));
         while(!input.equals("0000")){
+            mg = new MoveGenerator(board);
             System.out.println(board.toString());
             System.out.print(">");
             input = scan.next();
 
             board.move(new Move(board, input));
-
+            board.move(cpu_move(mg.moveList()));
         }
     }
 }

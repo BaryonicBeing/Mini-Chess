@@ -15,7 +15,7 @@ public class MoveGenerator {
     public LinkedList<Move> moveList() {
         LinkedList<Move> results = new LinkedList<Move>();
         for(Square piece: board.getAllSquares()) {
-            System.out.println(piece.toString());
+           // System.out.println(piece.toString());
             if(piece.getFigureColor() == board.getCurrentMoveColor()) {
                 results.addAll(this.moveList(piece));
             }
