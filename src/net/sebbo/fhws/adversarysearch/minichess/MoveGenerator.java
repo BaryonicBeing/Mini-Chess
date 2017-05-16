@@ -46,7 +46,7 @@ public class MoveGenerator {
         int direction = color == 'B' ? 1 : -1;
 
         if(piece.getFigureColor() != this.board.getCurrentMoveColor()) {
-            this.debug("moveLists(): Color does not match: Piece is " + piece.getFigureColor() + " but it's " + this.board.getCurrentMoveColor() + "'s turn.");
+            this.debug("moveLists(" + piece.toString() + "): Color does not match: Piece is " + piece.getFigureColor() + " but it's " + this.board.getCurrentMoveColor() + "'s turn.");
             return results;
         }
 
@@ -85,6 +85,7 @@ public class MoveGenerator {
             return results;
         }
 
+        this.debug("moveList(" + piece.toString() + "): Done, " + results.size() + " possible positions found.");
         return results;
     }
 
@@ -116,7 +117,7 @@ public class MoveGenerator {
             x += dx;
             y += dy;
 
-            this.debug("moveScan(): Move " + piece.getFigureName() + " at (" + x + "/" + y + ") with -- (" + dx + "/" + dy + ") --->  to (" + x + "/" + y + ")");
+            this.debug("moveScan(): Move " + piece.getFigureName() + " at " + piece.toString() + " with " + dx + "/" + dy);
 
             // out of bounds
             if(x < 0 || y < 0 || x >= this.board.getBoardWidth() || y >= this.board.getBoardHeight()) {
@@ -125,6 +126,7 @@ public class MoveGenerator {
             }
 
             toPiece = this.board.getSquareByPosition(y, x);
+            this.debug("            New position: " + toPiece.toString());
             if (toPiece.isOccupied()) {
 
                 // figures are in same color
@@ -149,7 +151,7 @@ public class MoveGenerator {
             results.add(new Move(board, y0, x0, y, x));
         } while (!stopShort);
 
-        this.debug("moveScan(): Done, " + results.size() + " possible positions found.");
+        this.debug("moveScan(): Done, " + results.size() + " possible positions found for " + piece.getFigureName() + " at (" + x0 + "/" + y0 + ").");
         return results;
     }
 
