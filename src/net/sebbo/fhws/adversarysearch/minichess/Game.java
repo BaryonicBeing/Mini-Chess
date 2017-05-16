@@ -5,6 +5,7 @@ package net.sebbo.fhws.adversarysearch.minichess;
  */
 public class Game {
 
+    Board board;
     Player player_1;
     Player player_2;
 
@@ -13,14 +14,44 @@ public class Game {
         this.player_2 = p2;
     }
 
-    public void run() throws Exception{
+    public void setBoard(Board board) {
+        this.board = board;
+    }
 
-        Board board = new Board();
-        char response = '?';
-
-        while(response == '?'){
-
-
+    public void run() throws Exception {
+        if(this.board == null) {
+            this.board = new Board();
         }
+
+        Player myPlayer;
+        char moveResponse;
+
+        do {
+            if(this.board.getCurrentMoveColor() == 'W') {
+                myPlayer = this.player_1;
+            }else{
+                myPlayer = this.player_2;
+            }
+
+            System.out.println("\n\n\nPlayer " + (this.board.getCurrentMoveColor() == 'W' ? "⬜️" : "⬛️"));
+            Move myMove = myPlayer.makeMove(this.board);
+            moveResponse = this.board.move(myMove);
+
+            if(moveResponse == 'B') {
+                System.out.println("\n=====================================");
+                System.out.println("⬛️🙌🎉");
+            }
+            else if(moveResponse == 'W') {
+                System.out.println("\n=====================================");
+                System.out.println("⬜️️🙌🎉");
+            }
+            else if(moveResponse == '=') {
+                System.out.println("\n=====================================");
+                System.out.println("👬🙌🎉");
+            }
+            else {
+                System.out.println("\nAWESOME! 🙌");
+            }
+        } while (moveResponse == '?');
     }
 }
