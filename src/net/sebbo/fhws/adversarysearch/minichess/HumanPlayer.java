@@ -9,6 +9,17 @@ import java.util.Scanner;
  * Created by max on 16.05.17.
  */
 public class HumanPlayer implements Player {
+    char color;
+
+    @Override
+    public char getColor() {
+        return this.color;
+    }
+
+    @Override
+    public void setColor(char color) {
+        this.color = color;
+    }
 
     @Override
     public boolean isLegal(Board b, Move move) {
@@ -25,7 +36,7 @@ public class HumanPlayer implements Player {
     }
 
     @Override
-    public Move makeMove(Board b){
+    public Move getMove(Board b){
         Scanner scan = new Scanner(System.in);
         String input = scan.next();
         Move toReturn = new Move(b, input);
@@ -35,5 +46,10 @@ public class HumanPlayer implements Player {
         System.out.println("Move was not legal!");
         /** Muss ich nochmal drüber gucken */
         return null;
+    }
+
+    @Override
+    public void setMove(Move m) {
+        // do nothing
     }
 }

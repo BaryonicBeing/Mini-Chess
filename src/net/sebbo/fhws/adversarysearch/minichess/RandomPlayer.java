@@ -4,6 +4,17 @@ package net.sebbo.fhws.adversarysearch.minichess;
  * Created by max on 16.05.17.
  */
 public class RandomPlayer implements Player {
+    char color;
+
+    @Override
+    public char getColor() {
+        return this.color;
+    }
+
+    @Override
+    public void setColor(char color) {
+        this.color = color;
+    }
 
     @Override
     public boolean isLegal(Board board, Move move) {
@@ -17,7 +28,7 @@ public class RandomPlayer implements Player {
     }
 
     @Override
-    public Move makeMove(Board b) {
+    public Move getMove(Board b) {
         System.out.println("Square test " + b.getAllSquares()[0].toString());
         MoveGenerator moveGen = new MoveGenerator(b);
         int move_num = (int) (Math.random() * moveGen.moveList().size());
@@ -27,5 +38,10 @@ public class RandomPlayer implements Player {
                 return m;
         }
         return null;
+    }
+
+    @Override
+    public void setMove(Move m) {
+        // do nothing
     }
 }
