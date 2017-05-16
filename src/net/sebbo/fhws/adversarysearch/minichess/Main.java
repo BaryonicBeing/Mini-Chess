@@ -15,7 +15,7 @@ public class Main {
         }
         return secure_move;
     }
-
+/*
     public static void main(String[] args) throws Exception {
         Board board = new Board();
         MoveGenerator mg = new MoveGenerator(board);
@@ -35,5 +35,20 @@ public class Main {
 
             board.move(new Move(board, input));
         }
+    }
+    */
+
+    public static void main(String[] args) throws Exception{
+        RandomPlayer hans = new RandomPlayer();
+        HumanPlayer ich = new HumanPlayer();
+
+        Board board = new Board();
+        //MoveGenerator mg = new MoveGenerator(board);
+        System.out.println(board.toString());
+        ich.makeMove(board);
+        System.out.println("_____________________");
+        System.out.println(board.toString());
+        System.out.println("_____________________");
+        hans.makeMove(board);
     }
 }
