@@ -31,6 +31,7 @@ public class MoveGenerator {
         int direction = color == 'B' ? 1 : -1;
 
         if(piece.getFigureColor() != this.board.getCurrentMoveColor()) {
+           // System.out.println("bla blub");
             return results;
         }
 
@@ -103,7 +104,7 @@ public class MoveGenerator {
 
             // out of bounds
             if(x < 0 || y < 0 || x >= this.board.getBoardWidth() || y >= this.board.getBoardHeight()) {
-            //    System.out.println(" -> Out of bounds");
+              //  System.out.println(" -> Out of bounds");
                 break;
             }
 
@@ -124,7 +125,7 @@ public class MoveGenerator {
 
                     stopShort = true;
                 } else if (capture == 'o') {
-                   // System.out.println(" -> Not occupied, but only capture allowed");
+                 //   System.out.println(" -> Not occupied, but only capture allowed");
                     break;
                 }
 
