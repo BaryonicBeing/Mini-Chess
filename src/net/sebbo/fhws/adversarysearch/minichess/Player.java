@@ -7,5 +7,5 @@ public interface Player {
 
     boolean isLegal(Move move);
 
-    public Move makeMove();
+    public Move makeMove(String move_str);
 }
