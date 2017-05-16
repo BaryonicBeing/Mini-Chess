@@ -34,16 +34,7 @@ public class Main {
         String input;
         int imcs_game_id;
 
-        System.out.println("Welcome to Mini Chess!\nLocal game or on IMCS Server?");
-
-        input = scan.next();
-
-        if (input.equals("imcs")) {
-            System.out.println("Whats the game id?");
-            imcs_game_id = scan.nextInt();
-        } else if(input.equals("local")){
-
-            System.out.println("Is Player 1 human or npc?");
+            System.out.println("Is Player 1 human, npc or imcs?");
             input = scan.next();
 
             if (input.equals("human")) {
@@ -52,7 +43,7 @@ public class Main {
                 p1 = new RandomPlayer();
             }
 
-            System.out.println("Is Player 2 human or npc?");
+            System.out.println("Is Player 2 human, npc or imcs?");
             input = scan.next();
 
             if (input.equals("human")) {
@@ -66,6 +57,5 @@ public class Main {
             Game game = new Game(p1, p2);
             game.run();
         }
-        System.out.println("Unknown input");
-    }
+
 }
