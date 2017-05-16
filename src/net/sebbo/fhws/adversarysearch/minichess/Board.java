@@ -180,8 +180,16 @@ public class Board {
         MoveGenerator mg = new MoveGenerator(this);
         return mg.moveList();
     }
+    public LinkedList<Move> listNextMoves(boolean debug) {
+        MoveGenerator mg = new MoveGenerator(this, debug);
+        return mg.moveList();
+    }
     public LinkedList<Move> listMovesFor(Square piece) {
         MoveGenerator mg = new MoveGenerator(this);
+        return mg.moveList(piece);
+    }
+    public LinkedList<Move> listMovesFor(Square piece, boolean debug) {
+        MoveGenerator mg = new MoveGenerator(this, debug);
         return mg.moveList(piece);
     }
 
