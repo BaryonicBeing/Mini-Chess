@@ -38,14 +38,13 @@ public class HumanPlayer implements Player {
     @Override
     public Move getMove(Board b){
         Scanner scan = new Scanner(System.in);
-        String input = scan.next();
-        Move toReturn = new Move(b, input);
-        if(isLegal(b, toReturn)){
-            return toReturn;
+        while (true) {
+            String input = scan.next();
+            Move toReturn = new Move(b, input);
+            if (isLegal(b, toReturn)) {
+                return toReturn;
+            }
         }
-        System.out.println("Move was not legal!");
-        /** Muss ich nochmal drüber gucken */
-        return null;
     }
 
     @Override

@@ -56,6 +56,7 @@ public class Game {
                 myPlayer = this.player_2;
             }
 
+            System.out.println(this.board.toString());
             System.out.println("\n\n\nPlayer " + (this.board.getCurrentMoveColor() == 'W' ? "⬜️" : "⬛️"));
             Move myMove = myPlayer.getMove(this.board);
 

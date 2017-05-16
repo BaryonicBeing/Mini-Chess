@@ -4,40 +4,7 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Main {
-
-    public static Move cpu_move(LinkedList<Move> moves){
-        int move_pos = (int) (Math.random() * moves.size());
-        Move secure_move = moves.get(0);
-        System.out.println("move_pos = " + move_pos);
-        for(Move m : moves){
-            if(move_pos-- == 0)
-                return m;
-        }
-        return secure_move;
-    }
 /*
-    public static void main(String[] args) throws Exception {
-        Board board = new Board();
-        MoveGenerator mg = new MoveGenerator(board);
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Welcome to Mini Chess!");
-        System.out.println(board.toString());
-        System.out.print("Please enter a move:\n>");
-        String input = scan.next();
-        board.move(new Move(board, input));
-
-        while(!input.equals("0000")){
-            //mg = new MoveGenerator(board);
-            board.move(cpu_move(mg.moveList()));
-            System.out.println(board.toString());
-            System.out.print(">");
-            input = scan.next();
-
-            board.move(new Move(board, input));
-        }
-    }
-    */
-
     public static void main(String[] args) throws Exception{
         RandomPlayer hans = new RandomPlayer();
         HumanPlayer ich = new HumanPlayer();
@@ -58,4 +25,37 @@ public class Main {
         System.out.println(board.toString());
         System.out.println("_____________________");
     }
+    */
+
+    public static void main(String[] args) throws Exception {
+        Player p1 = null;
+        Player p2 = null;
+        Scanner scan = new Scanner(System.in);
+        String input;
+        int imcs_game_id;
+
+            System.out.println("Is Player 1 human, npc or imcs?");
+            input = scan.next();
+
+            if (input.equals("human")) {
+                p1 = new HumanPlayer();
+            } else if (input.equals("npc")) {
+                p1 = new RandomPlayer();
+            }
+
+            System.out.println("Is Player 2 human, npc or imcs?");
+            input = scan.next();
+
+            if (input.equals("human")) {
+                p2 = new HumanPlayer();
+            } else if (input.equals("npc")) {
+                p2 = new RandomPlayer();
+            }
+
+            if (p1 == null || p2 == null) return;
+
+            Game game = new Game(p1, p2);
+            game.run();
+        }
+
 }
