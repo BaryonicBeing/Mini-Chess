@@ -7,15 +7,28 @@ import java.util.LinkedList;
  */
 public class MoveGenerator {
     Board board;
+    boolean debug;
 
     public MoveGenerator(Board board) {
         this.board = board;
     }
+    public MoveGenerator(Board board, boolean debug) {
+        this.board = board;
+        this.debug = debug;
+    }
+
+    private void debug(String text) {
+        if(!this.debug) {
+            return;
+        }
+
+        System.out.println("MoveGenerator: " + text);
+    }
 
     public LinkedList<Move> moveList() {
+        this.debug("moveLists()");
         LinkedList<Move> results = new LinkedList<Move>();
         for(Square piece: board.getAllSquares()) {
-           // System.out.println(piece.toString());
             if(piece.getFigureColor() == this.board.getCurrentMoveColor()) {
                 results.addAll(this.moveList(piece));
             }
@@ -25,13 +38,15 @@ public class MoveGenerator {
     }
 
     public LinkedList<Move> moveList(Square piece) {
+        this.debug("moveLists(" + piece.toString() + ")");
+
         LinkedList<Move> results = new LinkedList<Move>();
         char type = piece.getFigureType(),
              color = piece.getFigureColor();
         int direction = color == 'B' ? 1 : -1;
 
         if(piece.getFigureColor() != this.board.getCurrentMoveColor()) {
-           // System.out.println("bla blub");
+            this.debug("moveLists(): Color does not match: Piece is " + piece.getFigureColor() + " but it's " + this.board.getCurrentMoveColor() + "'s turn.");
             return results;
         }
 
@@ -92,6 +107,7 @@ public class MoveGenerator {
     public LinkedList<Move> moveScan(int x0, int y0, int dx, int dy, boolean stopShort, char capture) {
         LinkedList<Move> results = new LinkedList<Move>();
         Square piece = this.board.getSquareByPosition(y0, x0);
+        Square toPiece;
 
         int x = x0,
             y = y0;
@@ -100,41 +116,40 @@ public class MoveGenerator {
             x += dx;
             y += dy;
 
-            //System.out.println("\nMove from " + x0 + "/" + y0 + "  -- (" + dx + "/" + dy + ") --->  to " + x + "/" + y);
+            this.debug("moveScan(): Move " + piece.getFigureName() + " at (" + x + "/" + y + ") with -- (" + dx + "/" + dy + ") --->  to (" + x + "/" + y + ")");
 
             // out of bounds
             if(x < 0 || y < 0 || x >= this.board.getBoardWidth() || y >= this.board.getBoardHeight()) {
-              //  System.out.println(" -> Out of bounds");
+                this.debug("            ❌ Not possible: New position out of bounds.");
                 break;
             }
 
-            // there is a piece at x/y
-            if(x < 6 && y < 5) {
-                if (this.board.getSquareByPosition(y, x).isOccupied()) {
+            toPiece = this.board.getSquareByPosition(y, x);
+            if (toPiece.isOccupied()) {
 
-                    // figures are in same color
-                    if (this.board.getSquareByPosition(y, x).getFigureColor() == piece.getFigureColor()) {
-                //        System.out.println(" -> Occupied by same color");
-                        break;
-                    }
-
-                    if (capture == '0') {
-                  //      System.out.println(" -> Not able to capture");
-                        break;
-                    }
-
-                    stopShort = true;
-                } else if (capture == 'o') {
-                 //   System.out.println(" -> Not occupied, but only capture allowed");
+                // figures are in same color
+                if (toPiece.getFigureColor() == piece.getFigureColor()) {
+                    this.debug("            ❌ Not possible: New position occupied by " + toPiece.getFigureName() + " with same color.");
                     break;
                 }
 
+                if (capture == '0') {
+                    this.debug("            ❌ Not possible: New position occupied by " + toPiece.getFigureName() + " and " + piece.getFigureName() + " isn't able to capture this figure.");
+                    break;
+                }
 
-               // System.out.println(" -> Seems legit");
-                results.add(new Move(board, y0, x0, y, x));
+                stopShort = true;
+            } else if (capture == 'o') {
+                this.debug("            ❌ Not possible: Only allowed for capturing, but destination is not occupied.");
+                break;
             }
+
+
+            this.debug("            ✅ Seems legit.");
+            results.add(new Move(board, y0, x0, y, x));
         } while (!stopShort);
 
+        this.debug("moveScan(): Done, " + results.size() + " possible positions found.");
         return results;
     }
 
@@ -143,8 +158,7 @@ public class MoveGenerator {
 
         System.out.println(myBoard.toString() + "\n\n");
 
-        System.out.println("\n Possible Moves for A1:");
-        for(Move move: myBoard.listMovesFor(myBoard.getSquareByPosition("a1"))) {
+        for(Move move: myBoard.listNextMoves(true)) {
             System.out.println(" - " + move.toString());
         }
     }
