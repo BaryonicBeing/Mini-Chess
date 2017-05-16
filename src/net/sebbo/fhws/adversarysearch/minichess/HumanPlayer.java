@@ -8,8 +8,6 @@ import java.util.Scanner;
  */
 public class HumanPlayer implements Player {
 
-    public HumanPlayer(){}
-
     @Override
     public boolean isLegal(Board b, Move move) {
         MoveGenerator moveGen = new MoveGenerator(b);
