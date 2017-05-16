@@ -19,6 +19,9 @@ public class RandomPlayer implements Player {
     }
 
     @Override
+    public void setup() {}
+
+    @Override
     public boolean isLegal(Board board, Move move) {
         MoveGenerator moveGen = new MoveGenerator(board);
         for(Move m : moveGen.moveList(move.from)){

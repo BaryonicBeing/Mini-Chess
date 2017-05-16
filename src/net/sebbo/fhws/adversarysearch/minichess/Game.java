@@ -1,5 +1,7 @@
 package net.sebbo.fhws.adversarysearch.minichess;
 
+import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
+
 /**
  * Created by max on 16.05.17.
  */
@@ -12,14 +14,40 @@ public class Game {
     public Game(Player p1, Player p2) throws Exception {
         this.player_1 = p1;
         this.player_2 = p2;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public void run() throws Exception {
+        if(this.board == null) {
+            this.board = new Board();
+        }
+
+        Player myPlayer;
+        char moveResponse;
+
+        this.player_1.setup();
+        this.player_2.setup();
+
+        System.out.println("\nPreferred color of Player 1: " + this.player_1.getColor());
+        System.out.println("Preferred color of Player 2: " + this.player_2.getColor());
 
         if(this.player_1.getColor() == 'B' && this.player_2.getColor() != 'B') {
-            this.player_1 = p2;
-            this.player_2 = p1;
+            myPlayer = this.player_2;
+            this.player_2 = this.player_1;
+            this.player_1 = myPlayer;
+
+            System.out.println("Okay, swap it!");
+            System.out.println("\nPreferred color of Player 1: " + this.player_1.getColor());
+            System.out.println("Preferred color of Player 2: " + this.player_2.getColor());
+
         }
         if(this.player_2.getColor() == 'W' && this.player_1.getColor() != 'W') {
-            this.player_1 = p2;
-            this.player_2 = p1;
+            myPlayer = this.player_2;
+            this.player_2 = this.player_1;
+            this.player_1 = myPlayer;
         }
 
         if(this.player_1.getColor() == 'B') {
@@ -35,19 +63,6 @@ public class Game {
         if(this.player_2.getColor() != 'B') {
             this.player_2.setColor('B');
         }
-    }
-
-    public void setBoard(Board board) {
-        this.board = board;
-    }
-
-    public void run() throws Exception {
-        if(this.board == null) {
-            this.board = new Board();
-        }
-
-        Player myPlayer;
-        char moveResponse;
 
         do {
             if(this.board.getCurrentMoveColor() == 'W') {
@@ -66,13 +81,13 @@ public class Game {
             Move myMove = myPlayer.getMove(this.board);
 
             System.out.println("\nPlayer plays " + myMove + "…");
-
-            moveResponse = this.board.move(myMove);
             if(this.board.getCurrentMoveColor() == 'W') {
                 this.player_2.setMove(myMove);
             }else{
                 this.player_1.setMove(myMove);
             }
+
+            moveResponse = this.board.move(myMove);
 
             if(moveResponse == 'B') {
                 System.out.println("\n=====================================");

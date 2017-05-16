@@ -22,6 +22,9 @@ public class HumanPlayer implements Player {
     }
 
     @Override
+    public void setup() {}
+
+    @Override
     public boolean isLegal(Board b, Move move) {
         MoveGenerator moveGen = new MoveGenerator(b);
         LinkedList<Move> move_list = moveGen.moveList(move.from);

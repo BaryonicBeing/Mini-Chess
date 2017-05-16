@@ -9,15 +9,11 @@ import java.util.Scanner;
  */
 public class InternetAcceptPlayer implements Player {
     IMCSClient client;
-    char color;
+    char color = '?';
+    String id;
 
-    public InternetAcceptPlayer(String id) throws Exception {
-        this.client = new IMCSClient("imcs.svcs.cs.pdx.edu", "3589", "ILLEGAL_CHARACTER_AWESOME_NAME", "chessmaster");
-        this.color = this.client.accept(id, '?');
-    }
-    public InternetAcceptPlayer(String id, char color) throws Exception {
-        this.client = new IMCSClient("imcs.svcs.cs.pdx.edu", "3589", "ILLEGAL_CHARACTER_AWESOME_NAME", "chessmaster");
-        this.color = this.client.accept(id, color);
+    public InternetAcceptPlayer(String id) {
+        this.id = id;
     }
 
     @Override
@@ -28,6 +24,12 @@ public class InternetAcceptPlayer implements Player {
     @Override
     public void setColor(char color) {
         // do noting
+    }
+
+    @Override
+    public void setup() throws IOException {
+        this.client = new IMCSClient("imcs.svcs.cs.pdx.edu", "3589", "ILLEGAL_CHARACTER_AWESOME_NAME", "chessmaster");
+        this.color = this.client.accept(this.id, this.color) == 'B' ? 'W' : 'B';
     }
 
     @Override

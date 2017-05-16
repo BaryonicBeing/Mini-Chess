@@ -8,6 +8,7 @@ import java.io.IOException;
 public interface Player {
     public char getColor();
     public void setColor(char color);
+    public void setup() throws IOException;
 
     boolean isLegal(Board board, Move move);
 
