@@ -79,13 +79,39 @@ public class Board {
         }
     }
 
-    public void move(Move m){
+    public char move(Move m){
         Square from = m.from;
         Square to = m.to;
-        squares[to.row][to.col].occupiedBy = squares[from.row][from.col].occupiedBy;
-        squares[from.row][from.col].occupiedBy = '.';
+
+        // If a King is captured, the game is over with a win for other side
+        if(this.squares[to.row][to.col].occupiedBy == 'K') {
+            return 'B';
+        }
+        else if(this.squares[to.row][to.col].occupiedBy == 'k') {
+            return 'W';
+        }
+
+        // Make the Move
+        this.squares[to.row][to.col].occupiedBy = this.squares[from.row][from.col].occupiedBy;
+        this.squares[from.row][from.col].occupiedBy = '.';
+
+        // If a Pawn moves to its last rank, promote it to a Queen
+        if(this.squares[to.row][to.col].occupiedBy == 'P' && to.row == 0) {
+            this.squares[to.row][to.col].occupiedBy = 'Q';
+        }
+        else if(this.squares[to.row][to.col].occupiedBy == 'p' && to.row == this.squares.length - 1) {
+            this.squares[to.row][to.col].occupiedBy = 'q';
+        }
+
         moveNum++;
-        onMove = moveNum%2==0 ? 'B' : 'W';
+        onMove = moveNum % 2 == 0 ? 'B' : 'W';
+
+        // If the move number becomes 41, the game is over and a tie
+        if(this.moveNum >= 41) {
+            return '=';
+        }
+
+        return '?';
     }
 
     public String toString() {
