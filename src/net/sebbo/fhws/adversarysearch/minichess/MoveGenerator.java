@@ -15,9 +15,8 @@ public class MoveGenerator {
     public LinkedList<Move> moveList() {
         LinkedList<Move> results = new LinkedList<Move>();
         for(Square piece: board.getAllSquares()) {
-            //System.out.println(piece.toString());
-            System.out.println(board.getCurrentMoveColor());
-            if(piece.getFigureColor() == board.getCurrentMoveColor()) {
+           // System.out.println(piece.toString());
+            if(piece.getFigureColor() == this.board.getCurrentMoveColor()) {
                 results.addAll(this.moveList(piece));
             }
         }
@@ -30,6 +29,10 @@ public class MoveGenerator {
         char type = piece.getFigureType(),
              color = piece.getFigureColor();
         int direction = color == 'B' ? 1 : -1;
+
+        if(piece.getFigureColor() != this.board.getCurrentMoveColor()) {
+            return results;
+        }
 
         // queen, king
         if(type == 'q' || type == 'k') {
