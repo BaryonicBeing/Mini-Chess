@@ -8,6 +8,7 @@ public class Main {
     public static Move cpu_move(LinkedList<Move> moves){
         int move_pos = (int) (Math.random() * moves.size());
         Move secure_move = moves.get(0);
+        System.out.println("move_pos = " + move_pos);
         for(Move m : moves){
             if(move_pos-- == 0)
                 return m;
@@ -17,21 +18,22 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         Board board = new Board();
-        MoveGenerator mg;
+        MoveGenerator mg = new MoveGenerator(board);
         Scanner scan = new Scanner(System.in);
         System.out.println("Welcome to Mini Chess!");
         System.out.println(board.toString());
         System.out.print("Please enter a move:\n>");
         String input = scan.next();
         board.move(new Move(board, input));
+
         while(!input.equals("0000")){
-            mg = new MoveGenerator(board);
+            //mg = new MoveGenerator(board);
+            board.move(cpu_move(mg.moveList()));
             System.out.println(board.toString());
             System.out.print(">");
             input = scan.next();
 
             board.move(new Move(board, input));
-            board.move(cpu_move(mg.moveList()));
         }
     }
 }

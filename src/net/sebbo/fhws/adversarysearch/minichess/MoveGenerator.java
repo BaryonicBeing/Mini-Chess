@@ -95,11 +95,11 @@ public class MoveGenerator {
             x += dx;
             y += dy;
 
-            System.out.println("\nMove from " + x0 + "/" + y0 + "  -- (" + dx + "/" + dy + ") --->  to " + x + "/" + y);
+           // System.out.println("\nMove from " + x0 + "/" + y0 + "  -- (" + dx + "/" + dy + ") --->  to " + x + "/" + y);
 
             // out of bounds
             if(x < 0 || y < 0 || x >= this.board.getBoardWidth() || y >= this.board.getBoardHeight()) {
-                System.out.println(" -> Out of bounds");
+             //   System.out.println(" -> Out of bounds");
                 break;
             }
 
@@ -109,23 +109,23 @@ public class MoveGenerator {
 
                     // figures are in same color
                     if (this.board.getSquareByPosition(x, y).getFigureColor() == piece.getFigureColor()) {
-                        System.out.println(" -> Occupied by same color");
+               //         System.out.println(" -> Occupied by same color");
                         break;
                     }
 
                     if (capture == '0') {
-                        System.out.println(" -> Not able to capture");
+                 //       System.out.println(" -> Not able to capture");
                         break;
                     }
 
                     stopShort = true;
                 } else if (capture == 'o') {
-                    System.out.println(" -> Not occupied, but only capture allowed");
+                   // System.out.println(" -> Not occupied, but only capture allowed");
                     break;
                 }
 
 
-                System.out.println(" -> Seems legit");
+            //    System.out.println(" -> Seems legit");
                 results.add(new Move(board, x0, y0, x, y));
             }
         } while (stopShort);
