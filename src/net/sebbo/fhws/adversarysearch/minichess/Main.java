@@ -45,10 +45,16 @@ public class Main {
         Board board = new Board();
         //MoveGenerator mg = new MoveGenerator(board);
         System.out.println(board.toString());
-        ich.makeMove(board);
+        board.move(ich.makeMove(board));
+
         System.out.println("_____________________");
         System.out.println(board.toString());
         System.out.println("_____________________");
-        hans.makeMove(board);
+
+        board.move(hans.makeMove(board));
+
+        System.out.println("_____________________");
+        System.out.println(board.toString());
+        System.out.println("_____________________");
     }
 }

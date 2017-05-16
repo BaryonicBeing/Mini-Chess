@@ -106,7 +106,7 @@ public class IMCSClient {
      * @param username  username of account on IMCS server
      * @param password  password of account on IMCS server
      */
-    public Client(String server, String portStr,
+    public IMCSClient(String server, String portStr,
                   String username, String password) throws IOException {
         sendLineEnding = "\r\n";
         setClient(server, portStr, username, password);
@@ -120,7 +120,7 @@ public class IMCSClient {
      * @param password  password of account on IMCS server
      * @param sendLineEnding  what to use for line ending when sending
      */
-    public Client(String server, String portStr,
+    public IMCSClient(String server, String portStr,
                   String username, String password,
                   String sendLineEnding) throws IOException {
         this.sendLineEnding = sendLineEnding;
