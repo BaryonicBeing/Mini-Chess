@@ -1,6 +1,8 @@
 package net.sebbo.fhws.adversarysearch.minichess;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 /**
@@ -11,7 +13,9 @@ public class HumanPlayer implements Player {
     @Override
     public boolean isLegal(Board b, Move move) {
         MoveGenerator moveGen = new MoveGenerator(b);
-        for(Move m : moveGen.moveList(move.from)){
+        LinkedList<Move> move_list = moveGen.moveList(move.from);
+        for(Move m : move_list){
+            System.out.println(m.toString());
             if(m.to == move.to){
                 return true;
             }

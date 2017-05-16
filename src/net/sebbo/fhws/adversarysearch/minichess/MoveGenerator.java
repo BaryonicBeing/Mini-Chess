@@ -15,7 +15,8 @@ public class MoveGenerator {
     public LinkedList<Move> moveList() {
         LinkedList<Move> results = new LinkedList<Move>();
         for(Square piece: board.getAllSquares()) {
-           // System.out.println(piece.toString());
+            //System.out.println(piece.toString());
+            System.out.println(board.getCurrentMoveColor());
             if(piece.getFigureColor() == board.getCurrentMoveColor()) {
                 results.addAll(this.moveList(piece));
             }
@@ -32,17 +33,17 @@ public class MoveGenerator {
 
         // queen, king
         if(type == 'q' || type == 'k') {
-            results.addAll(this.symmScan(piece.row, piece.col, 0, 1, type == 'k', '1'));
-            results.addAll(this.symmScan(piece.row, piece.col, 1, 1, type == 'k', '1'));
+            results.addAll(this.symmScan(piece.col, piece.row, 0, 1, type == 'k', '1'));
+            results.addAll(this.symmScan(piece.col, piece.row, 1, 1, type == 'k', '1'));
             return results;
         }
 
         // rook, bishop
         if(type == 'r' || type == 'b') {
-            results.addAll(this.symmScan(piece.row, piece.col, 0, 1, type == 'b', type == 'r' ? '1' : '0'));
+            results.addAll(this.symmScan(piece.col, piece.row, 0, 1, type == 'b', type == 'r' ? '1' : '0'));
 
             if(type == 'b') {
-                results.addAll(this.symmScan(piece.row, piece.col, 1, 1, false, '1'));
+                results.addAll(this.symmScan(piece.col, piece.row, 1, 1, false, '1'));
             }
 
             return results;
@@ -50,17 +51,17 @@ public class MoveGenerator {
 
         // knight
         if(type == 'n') {
-            results.addAll(this.symmScan(piece.row, piece.col, 1, 2, true, '1'));
-            results.addAll(this.symmScan(piece.row, piece.col, -1, 2, true, '1'));
+            results.addAll(this.symmScan(piece.col, piece.row, 1, 2, true, '1'));
+            results.addAll(this.symmScan(piece.col, piece.row, -1, 2, true, '1'));
 
             return results;
         }
 
         // pawn
         if(type == 'p') {
-            results.addAll(this.moveScan(piece.row, piece.col, -1, direction, true, 'o'));
-            results.addAll(this.moveScan(piece.row, piece.col, 1, direction, true, 'o'));
-            results.addAll(this.moveScan(piece.row, piece.col, 0, direction, true, '0'));
+            results.addAll(this.moveScan(piece.col, piece.row, -1, direction, true, 'o'));
+            results.addAll(this.moveScan(piece.col, piece.row, 1, direction, true, 'o'));
+            results.addAll(this.moveScan(piece.col, piece.row, 0, direction, true, '0'));
 
             return results;
         }
@@ -86,7 +87,7 @@ public class MoveGenerator {
 
     public LinkedList<Move> moveScan(int x0, int y0, int dx, int dy, boolean stopShort, char capture) {
         LinkedList<Move> results = new LinkedList<Move>();
-        Square piece = this.board.getSquareByPosition(x0, y0);
+        Square piece = this.board.getSquareByPosition(y0, x0);
 
         int x = x0,
             y = y0;
@@ -95,26 +96,26 @@ public class MoveGenerator {
             x += dx;
             y += dy;
 
-           // System.out.println("\nMove from " + x0 + "/" + y0 + "  -- (" + dx + "/" + dy + ") --->  to " + x + "/" + y);
+            //System.out.println("\nMove from " + x0 + "/" + y0 + "  -- (" + dx + "/" + dy + ") --->  to " + x + "/" + y);
 
             // out of bounds
             if(x < 0 || y < 0 || x >= this.board.getBoardWidth() || y >= this.board.getBoardHeight()) {
-             //   System.out.println(" -> Out of bounds");
+            //    System.out.println(" -> Out of bounds");
                 break;
             }
 
             // there is a piece at x/y
             if(x < 6 && y < 5) {
-                if (this.board.getSquareByPosition(x, y).isOccupied()) {
+                if (this.board.getSquareByPosition(y, x).isOccupied()) {
 
                     // figures are in same color
-                    if (this.board.getSquareByPosition(x, y).getFigureColor() == piece.getFigureColor()) {
-               //         System.out.println(" -> Occupied by same color");
+                    if (this.board.getSquareByPosition(y, x).getFigureColor() == piece.getFigureColor()) {
+                //        System.out.println(" -> Occupied by same color");
                         break;
                     }
 
                     if (capture == '0') {
-                 //       System.out.println(" -> Not able to capture");
+                  //      System.out.println(" -> Not able to capture");
                         break;
                     }
 
@@ -125,10 +126,10 @@ public class MoveGenerator {
                 }
 
 
-            //    System.out.println(" -> Seems legit");
-                results.add(new Move(board, x0, y0, x, y));
+               // System.out.println(" -> Seems legit");
+                results.add(new Move(board, y0, x0, y, x));
             }
-        } while (stopShort);
+        } while (!stopShort);
 
         return results;
     }
