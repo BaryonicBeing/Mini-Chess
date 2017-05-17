@@ -27,6 +27,7 @@ public class Game {
 
         Player myPlayer;
         char moveResponse;
+        int heuristicScore = 0;
 
         this.player_1.setup();
         this.player_2.setup();
@@ -38,10 +39,6 @@ public class Game {
             myPlayer = this.player_2;
             this.player_2 = this.player_1;
             this.player_1 = myPlayer;
-
-            System.out.println("Okay, swap it!");
-            System.out.println("\nPreferred color of Player 1: " + this.player_1.getColor());
-            System.out.println("Preferred color of Player 2: " + this.player_2.getColor());
 
         }
         if(this.player_2.getColor() == 'W' && this.player_1.getColor() != 'W') {
@@ -73,8 +70,9 @@ public class Game {
 
             System.out.println("\n=====================================\n");
             System.out.println(
-                "Move #" + this.board.getMoveNr() + " / " +
-                "Player " + (this.board.getCurrentMoveColor() == 'W' ? "⬜️" : "⬛️") +
+                "Player " + (this.board.getCurrentMoveColor() == 'W' ? "⬜️" : "⬛️") + " || " +
+                "Move #" + this.board.getMoveNr() + " || " +
+                "Score: " + heuristicScore +
                 "\n"
             );
             System.out.println(this.board.toString() + "\n");
@@ -88,6 +86,7 @@ public class Game {
             }
 
             moveResponse = this.board.move(myMove);
+            heuristicScore = this.board.getHeuristicScore();
 
             if(moveResponse == 'B') {
                 System.out.println("\n=====================================");
@@ -97,9 +96,17 @@ public class Game {
                 System.out.println("\n=====================================");
                 System.out.println("⬜️️🙌🎉");
             }
-            else if(moveResponse == '=') {
+            else if(moveResponse == '=' && heuristicScore == 0) {
                 System.out.println("\n=====================================");
                 System.out.println("👬🙌🎉");
+            }
+            else if(moveResponse == '=' && heuristicScore > 0) {
+                System.out.println("\n=====================================");
+                System.out.println("👬🙌🎉 (with advantage for ⬜)");
+            }
+            else if(moveResponse == '=' && heuristicScore < 0) {
+                System.out.println("\n=====================================");
+                System.out.println("👬🙌🎉 (with advantage for ⬛)");
             }
             else {
                 System.out.println("Looks like an awesome move… 🙌");
