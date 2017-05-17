@@ -178,6 +178,18 @@ public class Board {
         return result;
     }
 
+    public int getHeuristicScore() {
+        int score = 0;
+
+        for(Square piece: this.getAllSquares()) {
+            if(piece.isOccupied()) {
+                score += (piece.getFigureColor() == 'W' ? 1 : -1) * piece.getFigureHeuristicScore();
+            }
+        }
+
+        return score;
+    }
+
     public LinkedList<Move> listNextMoves() {
         MoveGenerator mg = new MoveGenerator(this);
         return mg.moveList();

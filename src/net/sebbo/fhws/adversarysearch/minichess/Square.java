@@ -74,6 +74,24 @@ public class Square{
 
         return output.toString();
     }
+    public int getFigureHeuristicScore() {
+        char type = this.getFigureType();
+
+        if(type == 'k') {
+            return 50;
+        }
+        if(type == 'q') {
+            return 9;
+        }
+        if(type == 'r') {
+            return 5;
+        }
+        if(type == 'n' || type == 'b') {
+            return 3;
+        }
+
+        return 1;
+    }
     public char getFigureColor() {
         return Character.isLowerCase(this.occupiedBy) ? 'B' : 'W';
     }
