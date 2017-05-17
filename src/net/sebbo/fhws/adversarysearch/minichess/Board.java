@@ -248,11 +248,11 @@ public class Board {
 
         for(Square piece: this.getAllSquares()) {
             if(piece.isOccupied()) {
-                score += (piece.getFigureColor() == 'W' ? 1 : -1) * piece.getFigureHeuristicScore();
+                score += (piece.getFigureColor() == this.getCurrentMoveColor() ? 1 : -1) * piece.getFigureHeuristicScore();
             }
         }
 
-        score *= this.getCurrentMoveColor() == 'W' ? 1 : -1;
+        //score *= this.getCurrentMoveColor() == 'W' ? 1 : -1;
         return score;
     }
 
