@@ -1,5 +1,7 @@
 package net.sebbo.fhws.adversarysearch.minichess;
 
+import sun.awt.image.ImageWatched;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -11,6 +13,9 @@ public class NegamaxPlayer implements Player {
 
     private char color;
     private int depth;
+    ArrayList<Move> bestMoves = new ArrayList<>();
+
+    public NegamaxPlayer(int depth){this.depth = depth;}
 
     public int getDepth(){
         return this.depth;
@@ -68,34 +73,70 @@ public class NegamaxPlayer implements Player {
     @Override
     public Move getMove(Board b) throws IOException {
 
-
-        Board b_copy;
-        int value;
+        //Board b_copy;
+        //int value;
         int bestScore = 0;
-        ArrayList<Move> bestMove = new ArrayList<>();
-        LinkedList<Move> opportunities = b.listNextMoves();
+        //LinkedList<Move> opportunities = b.listNextMoves();
 
-        if(opportunities.size() == 0) {
-            return null;
-        }
-
+        //if(opportunities.size() == 0) {
+        //    return null;
+        //}
+/*
         for(Move m : opportunities){
             b_copy = b.clone();
             b_copy.move(m);
             value = b_copy.getHeuristicScore() * (b.getCurrentMoveColor() == 'W' ? 1 : -1);
 
             if(value == bestScore) {
-                bestMove.add(m);
+                bestMoves.add(m);
             }
             else if(value > bestScore) {
-                bestMove = new ArrayList<>();
+                bestMoves = new ArrayList<>();
                 bestScore = value;
-                bestMove.add(m);
+                bestMoves.add(m);
+            }
+        }
+*/
+        bestScore = negamax(b, this.depth);
+        System.out.println("best score is " + bestScore);
+        int move_num = (int) Math.round(Math.random() * (bestMoves.size() - 1));
+        return bestMoves.get(move_num);
+    }
+
+    private int negamax(Board board, int depth){
+
+        if(depth == 0){ board.getHeuristicScore();}
+
+        LinkedList<Move> opportunities = board.listNextMoves();
+        Board b_copy;
+        int bestValue = 0;
+        int bestScore = 0;
+        char state_of_the_game;
+
+        //if (opportunities.size() == 0) return null;
+
+        for(Move m : opportunities){
+            b_copy = board.clone();
+            state_of_the_game = b_copy.move(m);
+            //bestValue = b_copy.getHeuristicScore() * (board.getCurrentMoveColor() == 'W' ? 1 : -1);
+
+            if(state_of_the_game != '?'){
+                return b_copy.getHeuristicScore() * (board.getCurrentMoveColor() == this.color ? 1 : -1);
+            }else if(depth != 0){
+                bestValue = negamax(b_copy, depth-1);
+            }
+
+            if(bestValue == bestScore) {
+                bestMoves.add(m);
+            }
+            else if(bestValue > bestScore) {
+                bestMoves = new ArrayList<>();
+                bestScore = bestValue;
+                bestMoves.add(m);
             }
         }
 
-        int move_num = (int) Math.round(Math.random() * (bestMove.size() - 1));
-        return bestMove.get(move_num);
+        return bestValue;
     }
 
     @Override
