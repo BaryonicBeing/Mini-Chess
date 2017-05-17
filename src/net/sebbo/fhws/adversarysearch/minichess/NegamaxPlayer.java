@@ -77,6 +77,8 @@ public class NegamaxPlayer implements Player {
             } else
                 tmpValue = -1 * negamax(tmpBoard, depth - 1);
 
+            System.out.println("bestValue/tmpValue is " + bestValue + "/" + tmpValue +
+                    " for move " + m.toString() + " at depth " + depth);
             if(depth == this.depth) {
                 if(tmpValue > bestValue) {
                     this.bestMoves.clear();

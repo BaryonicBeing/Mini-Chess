@@ -87,6 +87,7 @@ public class Game {
 
             moveResponse = this.board.move(myMove);
             heuristicScore = this.board.getHeuristicScore();
+            System.exit(-1);
 
             if(moveResponse == 'B') {
                 System.out.println("\n=====================================");
@@ -118,13 +119,22 @@ public class Game {
         Player p1 = new NegamaxPlayer(2);
         Player p2 = new NegamaxPlayer(4);
 
+        Board test_board = new Board("1 W\n" +
+                ".....\n" +
+                ".....\n" +
+                ".k...\n" +
+                "..P..\n" +
+                ".....\n" +
+                ".....");
+
         int p1_won = 0;
         int p2_won = 0;
         int tie = 0;
-        int num_games = 10;
+        int num_games = 1;
 
         while(num_games-- != 0){
             Game test_game = new Game(p1, p2);
+            test_game.setBoard(test_board);
             test_game.run();
         }
 
