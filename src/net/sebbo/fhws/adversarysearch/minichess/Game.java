@@ -1,6 +1,6 @@
 package net.sebbo.fhws.adversarysearch.minichess;
 
-import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
+//import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
 
 /**
  * Created by max on 16.05.17.
