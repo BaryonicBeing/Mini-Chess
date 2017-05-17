@@ -113,4 +113,21 @@ public class Game {
             }
         } while (moveResponse == '?');
     }
+
+    public static void main(String[] args) throws Exception{
+        Player p1 = new NegamaxPlayer(2);
+        Player p2 = new NegamaxPlayer(4);
+
+        int p1_won = 0;
+        int p2_won = 0;
+        int tie = 0;
+        int num_games = 10;
+
+        while(num_games-- != 0){
+            Game test_game = new Game(p1, p2);
+            test_game.run();
+        }
+
+
+    }
 }
