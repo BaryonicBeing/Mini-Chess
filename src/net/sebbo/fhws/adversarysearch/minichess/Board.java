@@ -143,6 +143,59 @@ public class Board {
 
         return output.toString();
     }
+    public String toReadableString() {
+        StringBuilder o = new StringBuilder();
+
+
+        // Header
+        o.append("╔═════");
+        for(int i = 0; i < this.getBoardWidth(); i += 1) {
+            o.append("╦═════");
+        }
+        o.append("╗\n");
+
+        o.append("║     ");
+        for(int i = 0; i < this.getBoardWidth(); i += 1) {
+            o.append("║  " + ((char) ('A' + i)) + "  ");
+        }
+        o.append("║\n");
+
+        o.append("╠═════");
+        for(int i = 0; i < this.getBoardWidth(); i += 1) {
+            o.append("╬═════");
+        }
+        o.append("╣\n");
+
+
+        // Body
+        for(int i = 0; i < this.getBoardHeight(); i += 1) {
+            o.append("║  " + (this.getBoardHeight() - i) + "  ║");
+
+            for(Square piece: this.squares[i]) {
+                o.append("  " + piece.getFigureReadableEmoji() + "  ║");
+            }
+
+            o.append("\n");
+
+
+            if(i != this.getBoardHeight() - 1) {
+                o.append("╠═════");
+                for (int j = 0; j < this.getBoardWidth(); j += 1) {
+                    o.append("╬═════");
+                }
+                o.append("╣\n");
+            }else{
+                o.append("╚═════");
+                for (int j = 0; j < this.getBoardWidth(); j += 1) {
+                    o.append("╩═════");
+                }
+                o.append("╝\n");
+            }
+        }
+
+        return o.toString();
+    }
+
 
     public void print(Writer exportWriter) throws java.io.IOException {
         exportWriter.write(this.toString());

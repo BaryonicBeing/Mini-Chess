@@ -95,6 +95,36 @@ public class Square{
     public char getFigureColor() {
         return Character.isLowerCase(this.occupiedBy) ? 'B' : 'W';
     }
+    public String getFigureReadableEmoji() {
+        switch (this.occupiedBy) {
+            case 'K':
+                return "♚";
+            case 'Q':
+                return "♛";
+            case 'B':
+                return "♝";
+            case 'N':
+                return "♞";
+            case 'R':
+                return "♜";
+            case 'P':
+                return "♟";
+            case 'k':
+                return "♔";
+            case 'q':
+                return "♕";
+            case 'b':
+                return "♗";
+            case 'n':
+                return "♘";
+            case 'r':
+                return "♖";
+            case 'p':
+                return "♙";
+            default:
+                return " ";
+        }
+    }
 
 
     public static void main(String[] args) throws Exception {
