@@ -75,7 +75,7 @@ public class Game {
                 "Score: " + heuristicScore +
                 "\n"
             );
-            System.out.println(this.board.toString() + "\n");
+            System.out.println(this.board.toReadableString() + "\n");
             Move myMove = myPlayer.getMove(this.board);
 
             System.out.println("\nPlayer plays " + myMove + "…");
@@ -90,23 +90,23 @@ public class Game {
 
             if(moveResponse == 'B') {
                 System.out.println("\n=====================================");
-                System.out.println("⬛️🙌🎉");
+                System.out.println("Player ⬛ wins the game! ️🙌🎉");
             }
             else if(moveResponse == 'W') {
                 System.out.println("\n=====================================");
-                System.out.println("⬜️️🙌🎉");
+                System.out.println("Player ⬜ wins the game! ️️🙌🎉");
             }
             else if(moveResponse == '=' && heuristicScore == 0) {
                 System.out.println("\n=====================================");
-                System.out.println("👬🙌🎉");
+                System.out.println("Oh no. Both player won, love each other… 👬🙌🎉");
             }
             else if(moveResponse == '=' && heuristicScore > 0) {
                 System.out.println("\n=====================================");
-                System.out.println("👬🙌🎉 (with advantage for ⬜)");
+                System.out.println("Oh no. Both player won, but ⬜ had some advantages… 👬🙌🎉");
             }
             else if(moveResponse == '=' && heuristicScore < 0) {
                 System.out.println("\n=====================================");
-                System.out.println("👬🙌🎉 (with advantage for ⬛)");
+                System.out.println("Oh no. Both player won, but ⬛ had some advantages… 👬🙌🎉");
             }
             else {
                 System.out.println("Looks like an awesome move… 🙌");
