@@ -1,6 +1,7 @@
 package net.sebbo.fhws.adversarysearch.minichess;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -55,7 +56,7 @@ public class NegamaxPlayer implements Player {
           best_move <- m
           best_value <- v
   return best_move, best_value
-  
+
    To negamax on a board b:
    if the game is over, return the game value
    for each move m on b
@@ -66,17 +67,35 @@ public class NegamaxPlayer implements Player {
 
     @Override
     public Move getMove(Board b) throws IOException {
-        MoveGenerator moveGen = new MoveGenerator(b);
-        LinkedList<Move> opportunities = moveGen.moveList();
 
-        System.out.println("> Hmm, found " + opportunities.size() + " opportunities to make a move…");
+
+        Board b_copy;
+        int value;
+        int bestScore = 0;
+        ArrayList<Move> bestMove = new ArrayList<>();
+        LinkedList<Move> opportunities = b.listNextMoves();
+
         if(opportunities.size() == 0) {
             return null;
         }
 
+        for(Move m : opportunities){
+            b_copy = b.clone();
+            b_copy.move(m);
+            value = b_copy.getHeuristicScore() * (b.getCurrentMoveColor() == 'W' ? 1 : -1);
 
+            if(value == bestScore) {
+                bestMove.add(m);
+            }
+            else if(value > bestScore) {
+                bestMove = new ArrayList<>();
+                bestScore = value;
+                bestMove.add(m);
+            }
+        }
 
-        return null;
+        int move_num = (int) Math.round(Math.random() * (bestMove.size() - 1));
+        return bestMove.get(move_num);
     }
 
     @Override
