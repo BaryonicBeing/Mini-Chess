@@ -118,8 +118,8 @@ public class Board {
         moveNum++;
         onMove = moveNum % 2 == 0 ? 'B' : 'W';
 
-        // If the move number becomes 41, the game is over and a tie
-        if(this.moveNum >= 41) {
+        // If the move number becomes 81, the game is over and a tie
+        if(this.moveNum >= 81) {
             return '=';
         }
 
@@ -244,15 +244,17 @@ public class Board {
     }
 
     public int getHeuristicScore() {
+        return this.getHeuristicScore(this.getCurrentMoveColor());
+    }
+    public int getHeuristicScore(char color) {
         int score = 0;
 
         for(Square piece: this.getAllSquares()) {
             if(piece.isOccupied()) {
-                score += (piece.getFigureColor() == this.getCurrentMoveColor() ? 1 : -1) * piece.getFigureHeuristicScore();
+                score += (piece.getFigureColor() == color ? -1 : 1) * piece.getFigureHeuristicScore();
             }
         }
 
-        //score *= this.getCurrentMoveColor() == 'W' ? 1 : -1;
         return score;
     }
 

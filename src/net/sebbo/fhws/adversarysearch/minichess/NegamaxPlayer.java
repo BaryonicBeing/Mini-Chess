@@ -51,10 +51,10 @@ public class NegamaxPlayer implements Player {
         System.out.println("> Best score is " + bestScore);
         System.out.println("> " + this.bestMoves.size() + " moves found.");
 
-        //int move_num = (int) Math.round(Math.random() * (bestMoves.size() - 1));
-        //return bestMoves.get(move_num);
+        int move_num = (int) Math.round(Math.random() * (bestMoves.size() - 1));
+        return bestMoves.get(move_num);
 
-        return this.bestMove;
+        //return this.bestMove;
     }
 
     private int negamax(Board board, int depth){
@@ -64,20 +64,18 @@ public class NegamaxPlayer implements Player {
 
         LinkedList<Move> opportunities = board.listNextMoves();
         Board tmpBoard;
-        //char state_of_the_game;
+        char state_of_the_game;
         int bestValue = Integer.MIN_VALUE;
         int tmpValue;
 
         for(Move m : opportunities){
             tmpBoard = board.clone();
-            tmpBoard.move(m);
-            //state_of_the_game = tmpBoard.move(m);
+            state_of_the_game = tmpBoard.move(m);
 
-            //if(state_of_the_game != '?') {
-            //    return tmpBoard.getHeuristicScore();
-            //}
-
-            tmpValue = -1 * negamax(tmpBoard, depth - 1);
+            if(state_of_the_game == 'B' || state_of_the_game == 'W') {
+                tmpValue = -tmpBoard.getHeuristicScore();
+            } else
+                tmpValue = -1 * negamax(tmpBoard, depth - 1);
 
             if(depth == this.depth) {
                 if(tmpValue > bestValue) {
