@@ -38,6 +38,18 @@ public class Board {
         this.parseString(importReader.toString());
     }
 
+    @Override
+    public Board clone() {
+        try {
+            return new Board(
+                this.toString()
+            );
+        }
+        catch(Exception error) {
+            return null;
+        }
+    }
+
     private void parseString(String importString) throws Exception {
         int i = 0, row = 0, column = 0;
         char thisChar;
