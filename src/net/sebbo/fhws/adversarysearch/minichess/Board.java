@@ -252,6 +252,7 @@ public class Board {
             }
         }
 
+        score *= this.getCurrentMoveColor() == 'W' ? 1 : -1;
         return score;
     }
 
