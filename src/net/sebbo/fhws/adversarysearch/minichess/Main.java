@@ -32,6 +32,7 @@ public class Main {
             if (input.equals("negamax")) {
                 int depth = 1;
                 System.out.println("How many steps shall negamax forsee?");
+                System.out.print("> ");
                 depth = scanner.nextInt();
                 return new NegamaxPlayer(depth);
             }
