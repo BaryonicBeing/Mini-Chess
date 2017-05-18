@@ -91,7 +91,6 @@ public class Game {
 
             moveResponse = this.board.move(myMove);
             heuristicScore = this.board.getHeuristicScore();
-            System.exit(-1);
 
             if(moveResponse == 'B') {
                 System.out.println("\n=====================================");
@@ -125,9 +124,9 @@ public class Game {
     }
 
     public static void main(String[] args) throws Exception{
-        Player p1 = new NegamaxPlayer(4);
+        Player p1 = new NegamaxPlayer();
         //Player p2 = new RandomPlayer();
-        Player p2 = new NegamaxPlayer(2);
+        Player p2 = new NegamaxPlayer();
 
         Board test_board = new Board("1 W\n" +
                 ".....\n" +
