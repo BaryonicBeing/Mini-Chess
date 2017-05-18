@@ -65,6 +65,9 @@ public class Game {
             this.player_2.setColor('B');
         }
 
+        System.out.println("\nPlayer 1 is now " + this.player_1.getColor());
+        System.out.println("Player 2 is now " + this.player_2.getColor());
+
         do {
             if(this.board.getCurrentMoveColor() == 'W') {
                 myPlayer = this.player_1;
@@ -79,7 +82,10 @@ public class Game {
                 "Score: " + heuristicScore +
                 "\n"
             );
+
             System.out.println(this.board.toReadableString() + "\n");
+            System.out.println(this.board.toString() + "\n");
+
             Move myMove = myPlayer.getMove(this.board);
 
             System.out.println("\nPlayer plays " + myMove + "…");

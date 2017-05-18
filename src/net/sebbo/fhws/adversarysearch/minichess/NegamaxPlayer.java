@@ -64,9 +64,9 @@ public class NegamaxPlayer implements Player {
         Move tmpMove;
 
         int bestScore;
-        this.iterativeClockEnd = System.currentTimeMillis() + 5000;
+        this.iterativeClockEnd = System.currentTimeMillis() + 7000;
 
-        for(int i = 1; i <= 25; i += 1) {
+        for(int i = 1; i <= 25; i += i < 3 ? 2 : 1) {
             System.out.println("> \n> \n> \n> Iteration #" + i);
 
             this.bestMoves.clear();
@@ -136,6 +136,10 @@ public class NegamaxPlayer implements Player {
 
         this.debug(path, depth, "try " + opportunities.size() + " moves…");
         for(Move m : opportunities) {
+            if(this.shouldStopIteration()) {
+                return 0;
+            }
+
             this.debug(path + "/" + m, depth, "Start");
             tmpBoard = board.clone();
             state_of_the_game = tmpBoard.move(m);
