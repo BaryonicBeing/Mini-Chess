@@ -46,11 +46,15 @@ public class NegamaxPlayer implements Player {
         return true;
     }
 
-    private void debug(String path, String text) {
+    private void debug(String path, int depth, String text) {
         if(!this.debug) {
             return;
         }
 
+        System.out.print("> ");
+        for(int i = 0; i < this.depth - depth; i += 1) {
+            System.out.print("    ");
+        }
         System.out.println("NegamaxPlayer[" + path + "] " + text);
     }
 
@@ -74,7 +78,7 @@ public class NegamaxPlayer implements Player {
 
         if(depth == 0) {
             score = board.getHeuristicScore(board.getCurrentMoveColor(), this.debug);
-            this.debug(path, "score = " + score);
+            this.debug(path, depth, "score = " + score);
             return score;
         }
 
@@ -84,54 +88,50 @@ public class NegamaxPlayer implements Player {
         int bestValue = -20000;
         int tmpValue;
 
-        this.debug(path, "try " + opportunities.size() + " moves…");
+        this.debug(path, depth, "try " + opportunities.size() + " moves…");
         for(Move m : opportunities) {
-            this.debug(path + "/" + m, "Start");
+            this.debug(path + "/" + m, depth, "Start");
             tmpBoard = board.clone();
             state_of_the_game = tmpBoard.move(m);
 
-            if(this.debug) {
-                System.out.println("\nNew Board after move " + m + " with state " + state_of_the_game + ":\n" + tmpBoard.toReadableString() + "\n");
-            }
-
             if(state_of_the_game == this.color) {
                 tmpValue = 20000;
-                this.debug(path + "/" + m, "oh, i won, set tmpValue = " + tmpValue);
+                this.debug(path + "/" + m, depth, "oh, i won, set tmpValue = " + tmpValue);
             }
             else if(state_of_the_game == (this.color == 'W' ? 'B' : 'W')) {
                 tmpValue = -20000;
-                this.debug(path + "/" + m, "oh, i lost, set tmpValue = " + tmpValue);
+                this.debug(path + "/" + m, depth, "oh, i lost, set tmpValue = " + tmpValue);
             }
             else {
                 tmpValue = -1 * negamax(tmpBoard, depth - 1, path + "/" + m);
-                this.debug(path + "/" + m, "game resumes, set tmpValue = " + tmpValue);
+                this.debug(path + "/" + m, depth, "game resumes, set tmpValue = " + tmpValue);
             }
 
             if(depth == this.depth) {
-                this.debug(path + "/" + m, "This is a root Node");
+                this.debug(path + "/" + m, depth, "This is a root Node");
 
                 if(tmpValue > bestValue) {
-                    this.debug(path + "/" + m, "Clear results, because tmpValue (" + tmpValue + ") > bestValue (" + bestValue + ")");
+                    this.debug(path + "/" + m, depth, "Clear results, because tmpValue (" + tmpValue + ") > bestValue (" + bestValue + ")");
                     this.bestMoves.clear();
                 }
                 if(tmpValue >= bestValue) {
-                    this.debug(path + "/" + m, "Add result, because tmpValue (" + tmpValue + ") >= bestValue (" + bestValue + ")");
+                    this.debug(path + "/" + m, depth, "Add result, because tmpValue (" + tmpValue + ") >= bestValue (" + bestValue + ")");
                     this.bestMoves.add(m);
                 }
             }
             
             if(tmpValue > bestValue) {
                 bestValue = tmpValue;
-                this.debug(path + "/" + m, "Set bestValue to " + tmpValue);
+                this.debug(path + "/" + m, depth, "Set bestValue to " + tmpValue);
 
                 if(depth == this.depth) {
-                    this.debug(path + "/" + m, "Save current move " + m + " as best move");
+                    this.debug(path + "/" + m, depth, "Save current move " + m + " as best move");
                     this.bestMove = m;
                 }
             }
         }
 
-        this.debug(path, "bestValue = " + bestValue);
+        this.debug(path, depth, "bestValue = " + bestValue);
         return bestValue;
     }
 
