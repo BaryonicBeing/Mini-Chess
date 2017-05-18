@@ -1,7 +1,5 @@
 package net.sebbo.fhws.adversarysearch.minichess;
 
-import sun.awt.image.ImageWatched;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;

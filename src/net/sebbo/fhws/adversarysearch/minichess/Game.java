@@ -154,11 +154,12 @@ public class Game {
 
         while(num_games-- != 0){
             Game test_game = new Game(p1, p2);
-            test_game.setBoard(test_board_v2);
+            //test_game.setBoard(test_board_v2);
             test_game.run();
         }
 
-        //System.out.println("Test output\nblack: " + black_won +"\nwhite: " + white_won + "\ntie:" + tie);
+        System.out.println("Test output\nblack: " + black_won +"\nwhite: " + white_won + "\ntie:" + tie);
+        black_won = 0; white_won = 0; tie = 0;
 
 
     }
