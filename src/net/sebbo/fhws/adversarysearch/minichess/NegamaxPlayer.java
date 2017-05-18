@@ -12,10 +12,9 @@ import java.util.LinkedList;
 public class NegamaxPlayer implements Player {
     private char color;
     private int depth;
-    private boolean debug = true;
+    private boolean debug = false;
     private ArrayList<Move> bestMoves = new ArrayList<>();
     private Move bestMove;
-    private Move worstMove;
 
     public NegamaxPlayer(int depth){this.depth = depth;}
 
@@ -61,12 +60,13 @@ public class NegamaxPlayer implements Player {
         System.out.println("> Best score is " + bestScore);
         System.out.println("> " + this.bestMoves.size() + " good moves found.");
         System.out.println("> Best Move: " + this.bestMove);
-        System.out.println("> Worst Move: " + this.worstMove);
+
+        if(bestMoves.size() == 0) {
+            return null;
+        }
 
         int move_num = (int) Math.round(Math.random() * (bestMoves.size() - 1));
         return bestMoves.get(move_num);
-
-        //return this.bestMove;
     }
 
     private int negamax(Board board, int depth, String path) {
@@ -81,7 +81,7 @@ public class NegamaxPlayer implements Player {
         LinkedList<Move> opportunities = board.listNextMoves();
         Board tmpBoard;
         char state_of_the_game;
-        int bestValue = Integer.MAX_VALUE;
+        int bestValue = Integer.MIN_VALUE;
         int tmpValue;
 
         this.debug(path, "try " + opportunities.size() + " moves…");
@@ -90,28 +90,37 @@ public class NegamaxPlayer implements Player {
             tmpBoard = board.clone();
             state_of_the_game = tmpBoard.move(m);
 
-            if (state_of_the_game == 'B' || state_of_the_game == 'W') {
-                tmpValue = -tmpBoard.getHeuristicScore(board.getCurrentMoveColor(), this.debug);
-                this.debug(path + "/" + m, "end of game, set tmpValue = " + tmpValue);
-            } else {
-                tmpValue = -1 * negamax(tmpBoard, depth - 1, path + "/" + m);
+            if(this.debug) {
+                System.out.println("\nNew Board after move " + m + " with state " + state_of_the_game + ":\n" + tmpBoard.toReadableString() + "\n");
+            }
+
+            if(state_of_the_game == this.color) {
+                tmpValue = Integer.MAX_VALUE;
+                this.debug(path + "/" + m, "oh, i won, set tmpValue = " + tmpValue);
+            }
+            else if(state_of_the_game == (this.color == 'W' ? 'B' : 'W')) {
+                tmpValue = Integer.MIN_VALUE;
+                this.debug(path + "/" + m, "oh, i lost, set tmpValue = " + tmpValue);
+            }
+            else {
+                tmpValue = /*-1 * */negamax(tmpBoard, depth - 1, path + "/" + m);
                 this.debug(path + "/" + m, "game resumes, set tmpValue = " + tmpValue);
             }
 
             if(depth == this.depth) {
                 this.debug(path + "/" + m, "This is a root Node");
 
-                if(tmpValue < bestValue) {
+                if(tmpValue > bestValue) {
                     this.debug(path + "/" + m, "Clear results, because tmpValue (" + tmpValue + ") > bestValue (" + bestValue + ")");
                     this.bestMoves.clear();
                 }
-                if(tmpValue <= bestValue) {
+                if(tmpValue >= bestValue) {
                     this.debug(path + "/" + m, "Add result, because tmpValue (" + tmpValue + ") >= bestValue (" + bestValue + ")");
                     this.bestMoves.add(m);
                 }
             }
 
-            if(tmpValue < bestValue) {
+            if(tmpValue > bestValue) {
                 bestValue = tmpValue;
                 this.debug(path + "/" + m, "Set bestValue to " + tmpValue);
 

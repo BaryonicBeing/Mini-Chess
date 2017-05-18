@@ -94,18 +94,23 @@ public class Board {
     public char move(Move m){
         Square from = m.from;
         Square to = m.to;
+        char won = '?';
 
         // If a King is captured, the game is over with a win for other side
         if(this.squares[to.row][to.col].occupiedBy == 'K') {
-            return 'B';
+            won = 'B';
         }
         else if(this.squares[to.row][to.col].occupiedBy == 'k') {
-            return 'W';
+            won = 'W';
         }
 
         // Make the Move
         this.squares[to.row][to.col].occupiedBy = this.squares[from.row][from.col].occupiedBy;
         this.squares[from.row][from.col].occupiedBy = '.';
+
+        if(won != '?') {
+            return won;
+        }
 
         // If a Pawn moves to its last rank, promote it to a Queen
         if(this.squares[to.row][to.col].occupiedBy == 'P' && to.row == 0) {
@@ -253,7 +258,7 @@ public class Board {
         int score = 0;
         int tmpScore;
 
-        System.out.println("\n#### HEURISTIC START ####");
+        if(logging) System.out.println("\n#### HEURISTIC START ####");
         for(Square piece: this.getAllSquares()) {
             if(piece.isOccupied()) {
                 if(logging) System.out.print(
@@ -262,7 +267,7 @@ public class Board {
                     " (" + piece.getFigureHeuristicScore() + ") -> "
                 );
 
-                tmpScore = (piece.getFigureColor() == color ? -1 : 1) * piece.getFigureHeuristicScore();
+                tmpScore = (piece.getFigureColor() == color ? 1 : -1) * piece.getFigureHeuristicScore();
                 score += tmpScore;
 
                 if(logging) System.out.println(
@@ -270,7 +275,7 @@ public class Board {
                 );
             }
         }
-        System.out.println("#### HEURISTIC END ####\n");
+        if(logging) System.out.println("#### HEURISTIC END ####\n");
 
         return score;
     }
