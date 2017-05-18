@@ -67,7 +67,7 @@ public class NegamaxPlayer implements Player {
         this.iterativeClockEnd = System.currentTimeMillis() + 7000;
 
         for(int i = 1; i <= 25; i += i < 3 ? 2 : 1) {
-            System.out.println("> \n> \n> \n> Iteration #" + i);
+            System.out.println("> \n> Iteration #" + i);
 
             this.bestMoves.clear();
             this.depth = i;
