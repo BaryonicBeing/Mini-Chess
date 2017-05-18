@@ -73,7 +73,7 @@ public class NegamaxPlayer implements Player {
         int score;
 
         if(depth == 0) {
-            score = board.getHeuristicScore();
+            score = board.getHeuristicScore(board.getCurrentMoveColor(), this.debug);
             this.debug(path, "score = " + score);
             return score;
         }
@@ -91,7 +91,7 @@ public class NegamaxPlayer implements Player {
             state_of_the_game = tmpBoard.move(m);
 
             if (state_of_the_game == 'B' || state_of_the_game == 'W') {
-                tmpValue = -tmpBoard.getHeuristicScore();
+                tmpValue = -tmpBoard.getHeuristicScore(board.getCurrentMoveColor(), this.debug);
                 this.debug(path + "/" + m, "end of game, set tmpValue = " + tmpValue);
             } else {
                 tmpValue = -1 * negamax(tmpBoard, depth - 1, path + "/" + m);
