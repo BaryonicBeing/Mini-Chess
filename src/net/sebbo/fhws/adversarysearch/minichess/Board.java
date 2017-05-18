@@ -244,16 +244,33 @@ public class Board {
     }
 
     public int getHeuristicScore() {
-        return this.getHeuristicScore(this.getCurrentMoveColor());
+        return this.getHeuristicScore(this.getCurrentMoveColor(), false);
     }
     public int getHeuristicScore(char color) {
+        return this.getHeuristicScore(color, false);
+    }
+    public int getHeuristicScore(char color, boolean logging) {
         int score = 0;
+        int tmpScore;
 
+        System.out.println("\n#### HEURISTIC START ####");
         for(Square piece: this.getAllSquares()) {
             if(piece.isOccupied()) {
-                score += (piece.getFigureColor() == color ? -1 : 1) * piece.getFigureHeuristicScore();
+                if(logging) System.out.print(
+                    "- Piece " + piece.toString() + " is occupied by " +
+                    (piece.getFigureColor() == color ? "my" : "enemy's") + " " + piece.getFigureName() +
+                    " (" + piece.getFigureHeuristicScore() + ") -> "
+                );
+
+                tmpScore = (piece.getFigureColor() == color ? -1 : 1) * piece.getFigureHeuristicScore();
+                score += tmpScore;
+
+                if(logging) System.out.println(
+                    tmpScore + " -> Score is now " + score
+                );
             }
         }
+        System.out.println("#### HEURISTIC END ####\n");
 
         return score;
     }
