@@ -62,8 +62,10 @@ public class NegamaxPlayer implements Player {
     public Move getMove(Board b) throws IOException {
         int bestScore = negamax(b, this.depth, "");
         System.out.println("> Best score is " + bestScore);
-        System.out.println("> " + this.bestMoves.size() + " good moves found.");
-        System.out.println("> Best Move: " + this.bestMove);
+        System.out.println("> " + this.bestMoves.size() + " good moves found:");
+        for(Move m: this.bestMoves) {
+            System.out.println(">    - " + m);
+        }
 
         if(bestMoves.size() == 0) {
             return null;
@@ -83,6 +85,13 @@ public class NegamaxPlayer implements Player {
         }
 
         LinkedList<Move> opportunities = board.listNextMoves();
+        if(opportunities.size() == 0) {
+            score = board.getHeuristicScore(board.getCurrentMoveColor(), this.debug);
+            System.out.println(board.toReadableString());
+            this.debug(path, depth, "0 opportunities -> score = " + score);
+            return score;
+        }
+
         Board tmpBoard;
         char state_of_the_game;
         int bestValue = -20000;
@@ -104,7 +113,8 @@ public class NegamaxPlayer implements Player {
             }
             else {
                 tmpValue = -1 * negamax(tmpBoard, depth - 1, path + "/" + m);
-                this.debug(path + "/" + m, depth, "game resumes, set tmpValue = " + tmpValue);
+                tmpValue += (tmpValue > 0 ? -1 : 1) * (this.depth - depth);
+                this.debug(path + "/" + m, depth, "game resumes, result was " + state_of_the_game + ", set tmpValue = " + tmpValue);
             }
 
             if(depth == this.depth) {

@@ -128,6 +128,11 @@ public class Board {
             return '=';
         }
 
+        // if enemy is not able to move: lost
+        if(this.listNextMoves().size() == 0) {
+            return '=';
+        }
+
         return '?';
     }
 
@@ -275,6 +280,7 @@ public class Board {
                 );
             }
         }
+
         if(logging) System.out.println("#### HEURISTIC END ####\n");
 
         return score;
