@@ -125,24 +125,24 @@ public class Game {
     }
 
     public static void main(String[] args) throws Exception{
-        //Player p1 = new NegamaxPlayer(2);
-        Player p1 = new RandomPlayer();
-        Player p2 = new NegamaxPlayer(2);
+        Player p1 = new NegamaxPlayer(2);
+        Player p2 = new RandomPlayer();
+        //Player p2 = new NegamaxPlayer(2);
 
         Board test_board = new Board("1 W\n" +
                 ".....\n" +
                 ".....\n" +
-                ".k...\n" +
+                ".k.p.\n" +
                 "..P..\n" +
                 ".....\n" +
                 ".....");
 
 
-        int num_games = 3;
+        int num_games = 1;
 
         while(num_games-- != 0){
             Game test_game = new Game(p1, p2);
-            //test_game.setBoard(test_board);
+            test_game.setBoard(test_board);
             test_game.run();
         }
 
