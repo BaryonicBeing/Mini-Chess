@@ -12,7 +12,7 @@ import java.util.LinkedList;
 public class NegamaxPlayer implements Player {
     private char color;
     private int depth;
-    private boolean debug = false;
+    private boolean debug = true;
     private ArrayList<Move> bestMoves = new ArrayList<>();
     private Move bestMove;
 
