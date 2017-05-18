@@ -7,6 +7,10 @@ package net.sebbo.fhws.adversarysearch.minichess;
  */
 public class Game {
 
+    static int black_won = 0;
+    static int white_won = 0;
+    static int tie = 0;
+
     Board board;
     Player player_1; // White
     Player player_2; // Black
@@ -87,27 +91,32 @@ public class Game {
 
             moveResponse = this.board.move(myMove);
             heuristicScore = this.board.getHeuristicScore();
-            System.exit(-1);
+            //System.exit(-1);
 
             if(moveResponse == 'B') {
                 System.out.println("\n=====================================");
                 System.out.println("Player ⬛ wins the game! ️🙌🎉");
+                black_won++;
             }
             else if(moveResponse == 'W') {
                 System.out.println("\n=====================================");
                 System.out.println("Player ⬜ wins the game! ️️🙌🎉");
+                white_won++;
             }
             else if(moveResponse == '=' && heuristicScore == 0) {
                 System.out.println("\n=====================================");
                 System.out.println("Oh no. Both player won, love each other… 👬🙌🎉");
+                tie++;
             }
             else if(moveResponse == '=' && heuristicScore > 0) {
                 System.out.println("\n=====================================");
                 System.out.println("Oh no. Both player won, but ⬜ had some advantages… 👬🙌🎉");
+                tie++;
             }
             else if(moveResponse == '=' && heuristicScore < 0) {
                 System.out.println("\n=====================================");
                 System.out.println("Oh no. Both player won, but ⬛ had some advantages… 👬🙌🎉");
+                tie++;
             }
             else {
                 System.out.println("Looks like an awesome move… 🙌");
@@ -116,8 +125,9 @@ public class Game {
     }
 
     public static void main(String[] args) throws Exception{
-        Player p1 = new NegamaxPlayer(2);
-        Player p2 = new NegamaxPlayer(4);
+        //Player p1 = new NegamaxPlayer(2);
+        Player p1 = new RandomPlayer();
+        Player p2 = new NegamaxPlayer(2);
 
         Board test_board = new Board("1 W\n" +
                 ".....\n" +
@@ -127,16 +137,16 @@ public class Game {
                 ".....\n" +
                 ".....");
 
-        int p1_won = 0;
-        int p2_won = 0;
-        int tie = 0;
-        int num_games = 1;
+
+        int num_games = 3;
 
         while(num_games-- != 0){
             Game test_game = new Game(p1, p2);
-            test_game.setBoard(test_board);
+            //test_game.setBoard(test_board);
             test_game.run();
         }
+
+        System.out.println("Test output\nblack: " + black_won +"\nwhite: " + white_won + "\ntie:" + tie);
 
 
     }

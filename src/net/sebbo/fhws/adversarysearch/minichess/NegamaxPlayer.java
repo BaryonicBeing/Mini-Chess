@@ -65,7 +65,7 @@ public class NegamaxPlayer implements Player {
         LinkedList<Move> opportunities = board.listNextMoves();
         Board tmpBoard;
         char state_of_the_game;
-        int bestValue = Integer.MIN_VALUE;
+        int bestValue = Integer.MAX_VALUE;
         int tmpValue;
 
         for(Move m : opportunities){
@@ -77,18 +77,18 @@ public class NegamaxPlayer implements Player {
             } else
                 tmpValue = -1 * negamax(tmpBoard, depth - 1);
 
-            System.out.println("bestValue/tmpValue is " + bestValue + "/" + tmpValue +
-                    " for move " + m.toString() + " at depth " + depth);
+           // System.out.println("bestValue/tmpValue is " + bestValue + "/" + tmpValue +
+             //       " for move " + m.toString() + " at depth " + depth);
             if(depth == this.depth) {
-                if(tmpValue > bestValue) {
+                if(tmpValue < bestValue) {
                     this.bestMoves.clear();
                 }
-                if(tmpValue >= bestValue) {
+                if(tmpValue <= bestValue) {
                     this.bestMoves.add(m);
                 }
             }
 
-            if(tmpValue > bestValue) {
+            if(tmpValue < bestValue) {
                 bestValue = tmpValue;
 
                 if(depth == this.depth) {
