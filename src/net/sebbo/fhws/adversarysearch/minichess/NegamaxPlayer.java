@@ -119,14 +119,8 @@ public class NegamaxPlayer implements Player {
                     this.bestMoves.add(m);
                 }
             }
-
-<<<<<<< HEAD
+            
             if(tmpValue > bestValue) {
-=======
-            if(tmpValue < bestValue) {
-                //System.out.println("\tbestValue is set from " + bestValue + " to " + tmpValue +
-                //"(" + m.toString() + ")");
->>>>>>> 28fdde51526fa9a9d614151f2fe1c3b10f0fb197
                 bestValue = tmpValue;
                 this.debug(path + "/" + m, "Set bestValue to " + tmpValue);
 
