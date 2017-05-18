@@ -89,6 +89,9 @@ public class Square{
         if(type == 'n' || type == 'b') {
             return 3;
         }
+        if(type == '.') {
+            return -5;
+        }
 
         return 1;
     }
