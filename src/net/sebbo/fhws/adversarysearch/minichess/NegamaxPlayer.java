@@ -147,16 +147,17 @@ public class NegamaxPlayer implements Player {
             }
 
             if(state_of_the_game == this.color) {
-                tmpValue = 20000;
+                tmpValue = 20000 + (1000 * depth);
                 this.debug(path + "/" + m, depth, "oh, i won, set tmpValue = " + tmpValue);
             }
             else if(state_of_the_game == (this.color == 'W' ? 'B' : 'W')) {
-                tmpValue = -20000;
+                tmpValue = -20000 - (1000 * depth);
                 this.debug(path + "/" + m, depth, "oh, i lost, set tmpValue = " + tmpValue);
             }
             else {
                 tmpValue = -1 * negamax(tmpBoard, depth - 1, path + "/" + m);
-                tmpValue += (tmpValue > 0 ? -1 : 1) * (this.depth - depth);
+                //tmpValue += (tmpValue > 0 ? -1 : 1) * (this.depth - depth);
+                tmpValue -= (this.depth - depth) * 2;
                 this.debug(path + "/" + m, depth, "game resumes, result was " + state_of_the_game + ", set tmpValue = " + tmpValue);
             }
 
@@ -192,4 +193,5 @@ public class NegamaxPlayer implements Player {
     public void setMove(Move m) throws IOException {
 
     }
+
 }
