@@ -132,7 +132,7 @@ public class Game {
         Board test_board = new Board("1 W\n" +
                 ".....\n" +
                 ".....\n" +
-                ".k...\n" +
+                ".k.p.\n" +
                 "..P..\n" +
                 ".....\n" +
                 ".....");
