@@ -18,6 +18,8 @@ public class Board {
     private String parseError = null;
     private int moveNum = 1;
     private char onMove = 'W';
+    private String lossesWhite = "";
+    private String lossesBlack = "";
 
     public Board() throws Exception {
         this.parseString(
@@ -104,6 +106,14 @@ public class Board {
             won = 'W';
         }
 
+        // Save Loss
+        if(this.squares[to.row][to.col].isOccupied() && this.squares[to.row][to.col].getFigureColor() == 'W') {
+            this.lossesWhite += this.squares[to.row][to.col].getFigureReadableEmoji() + " ";
+        }
+        else if(this.squares[to.row][to.col].isOccupied() && this.squares[to.row][to.col].getFigureColor() == 'B') {
+            this.lossesBlack += this.squares[to.row][to.col].getFigureReadableEmoji() + " ";
+        }
+
         // Make the Move
         this.squares[to.row][to.col].occupiedBy = this.squares[from.row][from.col].occupiedBy;
         this.squares[from.row][from.col].occupiedBy = '.';
@@ -185,6 +195,14 @@ public class Board {
                 o.append("  " + piece.getFigureReadableEmoji() + "  ║");
             }
 
+            // Figure Overview Headline
+            if(i == 1) {
+                o.append("    White Losses:");
+            }
+            if(i == 3) {
+                o.append("    " + this.lossesBlack);
+            }
+
             o.append("\n");
 
 
@@ -193,14 +211,23 @@ public class Board {
                 for (int j = 0; j < this.getBoardWidth(); j += 1) {
                     o.append("╬═════");
                 }
-                o.append("╣\n");
+                o.append("╣");
             }else{
                 o.append("╚═════");
                 for (int j = 0; j < this.getBoardWidth(); j += 1) {
                     o.append("╩═════");
                 }
-                o.append("╝\n");
+                o.append("╝");
             }
+
+            if(i == 1) {
+                o.append("    " + this.lossesWhite);
+            }
+            if(i == 2) {
+                o.append("    Black Losses:");
+            }
+
+            o.append("\n");
         }
 
         return o.toString();

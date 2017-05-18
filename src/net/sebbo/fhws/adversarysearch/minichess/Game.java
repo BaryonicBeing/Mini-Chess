@@ -84,7 +84,7 @@ public class Game {
             );
 
             System.out.println(this.board.toReadableString() + "\n");
-            System.out.println(this.board.toString() + "\n");
+            //System.out.println(this.board.toString() + "\n");
 
             Move myMove = myPlayer.getMove(this.board);
 
