@@ -12,8 +12,10 @@ import java.util.LinkedList;
 public class NegamaxPlayer implements Player {
     private char color;
     private int depth;
-    ArrayList<Move> bestMoves = new ArrayList<>();
-    Move bestMove;
+    private boolean debug = true;
+    private ArrayList<Move> bestMoves = new ArrayList<>();
+    private Move bestMove;
+    private Move worstMove;
 
     public NegamaxPlayer(int depth){this.depth = depth;}
 
@@ -45,11 +47,21 @@ public class NegamaxPlayer implements Player {
         return true;
     }
 
+    private void debug(String path, String text) {
+        if(!this.debug) {
+            return;
+        }
+
+        System.out.println("NegamaxPlayer[" + path + "] " + text);
+    }
+
     @Override
     public Move getMove(Board b) throws IOException {
-        int bestScore = negamax(b, this.depth);
+        int bestScore = negamax(b, this.depth, "");
         System.out.println("> Best score is " + bestScore);
-        System.out.println("> " + this.bestMoves.size() + " moves found.");
+        System.out.println("> " + this.bestMoves.size() + " good moves found.");
+        System.out.println("> Best Move: " + this.bestMove);
+        System.out.println("> Worst Move: " + this.worstMove);
 
         int move_num = (int) Math.round(Math.random() * (bestMoves.size() - 1));
         return bestMoves.get(move_num);
@@ -57,9 +69,13 @@ public class NegamaxPlayer implements Player {
         //return this.bestMove;
     }
 
-    private int negamax(Board board, int depth){
+    private int negamax(Board board, int depth, String path) {
+        int score;
+
         if(depth == 0) {
-            return board.getHeuristicScore();
+            score = board.getHeuristicScore();
+            this.debug(path, "score = " + score);
+            return score;
         }
 
         LinkedList<Move> opportunities = board.listNextMoves();
@@ -68,23 +84,29 @@ public class NegamaxPlayer implements Player {
         int bestValue = Integer.MAX_VALUE;
         int tmpValue;
 
-        for(Move m : opportunities){
+        this.debug(path, "try " + opportunities.size() + " moves…");
+        for(Move m : opportunities) {
+            this.debug(path + "/" + m, "Start");
             tmpBoard = board.clone();
             state_of_the_game = tmpBoard.move(m);
 
-            if(state_of_the_game == 'B' || state_of_the_game == 'W') {
+            if (state_of_the_game == 'B' || state_of_the_game == 'W') {
                 tmpValue = -tmpBoard.getHeuristicScore();
-            } else
-                tmpValue = -1 * negamax(tmpBoard, depth - 1);
-            if(depth == this.depth) {
-                //System.out.println("bestValue/tmpValue is " + bestValue + "/" + tmpValue +
-                  //      " for move " + m.toString() + " at depth " + depth);
+                this.debug(path + "/" + m, "end of game, set tmpValue = " + tmpValue);
+            } else {
+                tmpValue = -1 * negamax(tmpBoard, depth - 1, path + "/" + m);
+                this.debug(path + "/" + m, "game resumes, set tmpValue = " + tmpValue);
             }
+
             if(depth == this.depth) {
+                this.debug(path + "/" + m, "This is a root Node");
+
                 if(tmpValue < bestValue) {
+                    this.debug(path + "/" + m, "Clear results, because tmpValue (" + tmpValue + ") > bestValue (" + bestValue + ")");
                     this.bestMoves.clear();
                 }
                 if(tmpValue <= bestValue) {
+                    this.debug(path + "/" + m, "Add result, because tmpValue (" + tmpValue + ") >= bestValue (" + bestValue + ")");
                     this.bestMoves.add(m);
                 }
             }
@@ -93,13 +115,16 @@ public class NegamaxPlayer implements Player {
                 //System.out.println("\tbestValue is set from " + bestValue + " to " + tmpValue +
                 //"(" + m.toString() + ")");
                 bestValue = tmpValue;
+                this.debug(path + "/" + m, "Set bestValue to " + tmpValue);
 
                 if(depth == this.depth) {
+                    this.debug(path + "/" + m, "Save current move " + m + " as best move");
                     this.bestMove = m;
                 }
             }
         }
 
+        this.debug(path, "bestValue = " + bestValue);
         return bestValue;
     }
 
