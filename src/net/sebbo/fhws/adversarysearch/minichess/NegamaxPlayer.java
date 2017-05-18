@@ -11,10 +11,10 @@ public class NegamaxPlayer implements Player {
     private char color;
     private int depth;
     private boolean debug = false;
+    private long iterativeClockEnd;
+    private int iterativeClockCounter = 0;
     private ArrayList<Move> bestMoves = new ArrayList<>();
     private Move bestMove;
-
-    public NegamaxPlayer(int depth){this.depth = depth;}
 
     public int getDepth(){
         return this.depth;
@@ -58,23 +58,60 @@ public class NegamaxPlayer implements Player {
 
     @Override
     public Move getMove(Board b) throws IOException {
-        int bestScore = negamax(b, this.depth, "");
-        System.out.println("> Best score is " + bestScore);
-        System.out.println("> " + this.bestMoves.size() + " good moves found:");
-        for(Move m: this.bestMoves) {
-            System.out.println(">    - " + m);
+        Move bestMove = null;
+        Move tmpMove;
+
+        int bestScore;
+        this.iterativeClockEnd = System.currentTimeMillis() + 7000;
+
+        for(int i = 1; i <= 25; i += i < 3 ? 2 : 1) {
+            System.out.println("> \n> \n> \n> Iteration #" + i);
+
+            this.bestMoves.clear();
+            this.depth = i;
+            bestScore = negamax(b, i, "");
+            if(i > 1 && this.shouldStopIteration()) {
+                System.out.println("> Timeout, stop iteration");
+                break;
+            }
+
+            System.out.println("> > Best score is " + bestScore);
+            System.out.println("> > " + this.bestMoves.size() + " good moves found:");
+            for(Move m: this.bestMoves) {
+                System.out.println("> >   - " + m);
+            }
+
+            if(bestMoves.size() == 0) {
+                return null;
+            }
+
+            bestScore = (int) Math.round(Math.random() * (bestMoves.size() - 1));
+            tmpMove = bestMoves.get(bestScore);
+
+            bestMove = tmpMove;
         }
 
-        if(bestMoves.size() == 0) {
-            return null;
+        return bestMove;
+    }
+    private boolean shouldStopIteration() {
+        if(this.iterativeClockCounter++ < 1000) {
+            return false;
         }
 
-        int move_num = (int) Math.round(Math.random() * (bestMoves.size() - 1));
-        return bestMoves.get(move_num);
+        if(this.iterativeClockEnd < System.currentTimeMillis()) {
+            return true;
+        }
+
+        this.iterativeClockCounter = 0;
+        return false;
     }
 
     private int negamax(Board board, int depth, String path) {
         int score;
+
+        if(this.shouldStopIteration()) {
+            return 0;
+        }
 
         if(depth == 0) {
             score = board.getHeuristicScore(board.getCurrentMoveColor(), this.debug);
@@ -97,9 +134,17 @@ public class NegamaxPlayer implements Player {
 
         this.debug(path, depth, "try " + opportunities.size() + " moves…");
         for(Move m : opportunities) {
+            if(this.shouldStopIteration()) {
+                return 0;
+            }
+
             this.debug(path + "/" + m, depth, "Start");
             tmpBoard = board.clone();
             state_of_the_game = tmpBoard.move(m);
+
+            if(this.shouldStopIteration()) {
+                return 0;
+            }
 
             if(state_of_the_game == this.color) {
                 tmpValue = 20000;

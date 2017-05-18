@@ -30,11 +30,7 @@ public class Main {
                 return new RandomPlayer();
             }
             if (input.equals("negamax")) {
-                int depth = 1;
-                System.out.println("How many steps shall negamax forsee?");
-                System.out.print("> ");
-                depth = scanner.nextInt();
-                return new NegamaxPlayer(depth);
+                return new NegamaxPlayer();
             }
             if (input.equals("offer")) {
                 return new InternetOfferPlayer();
