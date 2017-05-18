@@ -81,7 +81,7 @@ public class NegamaxPlayer implements Player {
         LinkedList<Move> opportunities = board.listNextMoves();
         Board tmpBoard;
         char state_of_the_game;
-        int bestValue = Integer.MIN_VALUE;
+        int bestValue = -20000;
         int tmpValue;
 
         this.debug(path, "try " + opportunities.size() + " moves…");
@@ -95,15 +95,15 @@ public class NegamaxPlayer implements Player {
             }
 
             if(state_of_the_game == this.color) {
-                tmpValue = Integer.MAX_VALUE;
+                tmpValue = 20000;
                 this.debug(path + "/" + m, "oh, i won, set tmpValue = " + tmpValue);
             }
             else if(state_of_the_game == (this.color == 'W' ? 'B' : 'W')) {
-                tmpValue = Integer.MIN_VALUE;
+                tmpValue = -20000;
                 this.debug(path + "/" + m, "oh, i lost, set tmpValue = " + tmpValue);
             }
             else {
-                tmpValue = /*-1 * */negamax(tmpBoard, depth - 1, path + "/" + m);
+                tmpValue = -1 * negamax(tmpBoard, depth - 1, path + "/" + m);
                 this.debug(path + "/" + m, "game resumes, set tmpValue = " + tmpValue);
             }
 
