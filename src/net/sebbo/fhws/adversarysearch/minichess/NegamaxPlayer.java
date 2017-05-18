@@ -64,7 +64,7 @@ public class NegamaxPlayer implements Player {
         int bestScore;
         this.iterativeClockEnd = System.currentTimeMillis() + 7000;
 
-        for(int i = 1; i <= 25; i += i < 3 ? 2 : 1) {
+        for(int i = 1; i <= 10; i += i < 3 ? 2 : 1) {
             //System.out.println("> \n> \n> \n> Iteration #" + i);
 
             this.bestMoves.clear();
@@ -151,13 +151,14 @@ public class NegamaxPlayer implements Player {
                 this.debug(path + "/" + m, depth, "oh, i won, set tmpValue = " + tmpValue);
             }
             else if(state_of_the_game == (this.color == 'W' ? 'B' : 'W')) {
-                tmpValue = -20000 - (1000 * depth);
+                tmpValue = -50000 - (1000 * depth);
                 this.debug(path + "/" + m, depth, "oh, i lost, set tmpValue = " + tmpValue);
             }
             else {
                 tmpValue = -1 * negamax(tmpBoard, depth - 1, path + "/" + m);
                 //tmpValue += (tmpValue > 0 ? -1 : 1) * (this.depth - depth);
                 tmpValue -= (this.depth - depth) * 2;
+                //tmpValue += (tmpValue > 0 ? -2 : 1) * (this.depth - depth);
                 this.debug(path + "/" + m, depth, "game resumes, result was " + state_of_the_game + ", set tmpValue = " + tmpValue);
             }
 
