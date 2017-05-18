@@ -19,7 +19,7 @@ public class Main {
         System.out.println("\nWhat type of player should be player " + number + "?");
 
         while(true) {
-            System.out.println("Allowed Values: human, random, accept, negamax");
+            System.out.println("Allowed Values: human, random, accept, offer, negamax");
             System.out.print("> ");
             input = scanner.next();
 
@@ -36,7 +36,9 @@ public class Main {
                 depth = scanner.nextInt();
                 return new NegamaxPlayer(depth);
             }
-
+            if (input.equals("offer")) {
+                return new InternetOfferPlayer();
+            }
             if (input.equals("accept")) {
                 System.out.println("Nice! Please enter the game id you want to join…");
                 System.out.print("> ");
