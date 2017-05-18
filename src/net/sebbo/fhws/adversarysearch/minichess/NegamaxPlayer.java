@@ -65,20 +65,20 @@ public class NegamaxPlayer implements Player {
         this.iterativeClockEnd = System.currentTimeMillis() + 7000;
 
         for(int i = 1; i <= 25; i += i < 3 ? 2 : 1) {
-            System.out.println("> \n> \n> \n> Iteration #" + i);
+            //System.out.println("> \n> \n> \n> Iteration #" + i);
 
             this.bestMoves.clear();
             this.depth = i;
             bestScore = negamax(b, i, "");
             if(i > 1 && this.shouldStopIteration()) {
-                System.out.println("> Timeout, stop iteration");
+                //System.out.println("> Timeout, stop iteration");
                 break;
             }
 
-            System.out.println("> > Best score is " + bestScore);
-            System.out.println("> > " + this.bestMoves.size() + " good moves found:");
+            //System.out.println("> > Best score is " + bestScore);
+            //System.out.println("> > " + this.bestMoves.size() + " good moves found:");
             for(Move m: this.bestMoves) {
-                System.out.println("> >   - " + m);
+                //System.out.println("> >   - " + m);
             }
 
             if(bestMoves.size() == 0) {
