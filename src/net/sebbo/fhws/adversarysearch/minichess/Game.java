@@ -91,7 +91,7 @@ public class Game {
 
             moveResponse = this.board.move(myMove);
             heuristicScore = this.board.getHeuristicScore();
-            //System.exit(-1);
+            System.exit(-1);
 
             if(moveResponse == 'B') {
                 System.out.println("\n=====================================");
@@ -125,7 +125,7 @@ public class Game {
     }
 
     public static void main(String[] args) throws Exception{
-        Player p1 = new NegamaxPlayer(5);
+        Player p1 = new NegamaxPlayer(4);
         //Player p2 = new RandomPlayer();
         Player p2 = new NegamaxPlayer(2);
 
@@ -137,16 +137,23 @@ public class Game {
                 ".....\n" +
                 ".....");
 
+        Board test_board_v2 = new Board("1 W\n" +
+                ".....\n" +
+                ".q...\n" +
+                ".....\n" +
+                "...K.\n" +
+                ".....\n" +
+                ".....");
 
-        int num_games = 10;
+        int num_games = 1;
 
         while(num_games-- != 0){
             Game test_game = new Game(p1, p2);
-            //test_game.setBoard(test_board);
+            test_game.setBoard(test_board_v2);
             test_game.run();
         }
 
-        System.out.println("Test output\nblack: " + black_won +"\nwhite: " + white_won + "\ntie:" + tie);
+        //System.out.println("Test output\nblack: " + black_won +"\nwhite: " + white_won + "\ntie:" + tie);
 
 
     }
