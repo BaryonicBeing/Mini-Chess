@@ -151,13 +151,15 @@ public class NegamaxPlayer implements Player {
                 this.debug(path + "/" + m, depth, "oh, i won, set tmpValue = " + tmpValue);
             }
             else if(state_of_the_game == (this.color == 'W' ? 'B' : 'W')) {
-                tmpValue = -50000 - (1000 * depth);
+                tmpValue = 20000 + (1000 * depth);
+
                 this.debug(path + "/" + m, depth, "oh, i lost, set tmpValue = " + tmpValue);
             }
             else {
                 tmpValue = -1 * negamax(tmpBoard, depth - 1, path + "/" + m);
-                //tmpValue += (tmpValue > 0 ? -1 : 1) * (this.depth - depth);
-                tmpValue -= (this.depth - depth) * 2;
+                tmpValue += (tmpValue > 0 ? 1 : -1) * (this.depth - depth);
+
+                //tmpValue -= (this.depth - depth) * 2;
                 //tmpValue += (tmpValue > 0 ? -2 : 1) * (this.depth - depth);
                 this.debug(path + "/" + m, depth, "game resumes, result was " + state_of_the_game + ", set tmpValue = " + tmpValue);
             }
@@ -185,7 +187,14 @@ public class NegamaxPlayer implements Player {
                 }
             }
         }
-
+        /*
+        if(bestMoves.size() != 0) {
+            for (Move m : bestMoves) {
+                System.out.println(m.toString() + " " + bestValue + " " + depth);
+            }
+            System.out.println("_________________________________________________________");
+        }
+        */
         this.debug(path, depth, "bestValue = " + bestValue);
         return bestValue;
     }

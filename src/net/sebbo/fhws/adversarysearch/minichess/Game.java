@@ -132,29 +132,30 @@ public class Game {
     public static void main(String[] args) throws Exception{
         Player p1 = new NegamaxPlayer();
         //Player p2 = new RandomPlayer();
-        Player p2 = new RandomPlayer();
+        //Player p2 = new RandomPlayer();
+        Player p2 = new HumanPlayer();
 
         Board test_board = new Board("1 W\n" +
+                "....k\n" +
                 ".....\n" +
-                ".....\n" +
-                ".k.p.\n" +
                 "..P..\n" +
+                "...R.\n" +
                 ".....\n" +
-                ".....");
+                "K....");
 
         Board test_board_v2 = new Board("1 W\n" +
+                "...rb\n" +
+                "...p.\n" +
+                "kK...\n" +
                 ".....\n" +
-                ".q...\n" +
-                ".....\n" +
-                "...K.\n" +
                 ".....\n" +
                 ".....");
 
-        int num_games = 10;
+        int num_games = 1;
 
         while(num_games-- != 0){
             Game test_game = new Game(p1, p2);
-            //test_game.setBoard(test_board_v2);
+            test_game.setBoard(test_board_v2);
             test_game.run();
         }
 
